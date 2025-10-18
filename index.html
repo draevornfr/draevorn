@@ -1,128 +1,31 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-  <meta charset="UTF-8">
-  <title>MisterRealm - Serveur Minecraft</title>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+<style>
+  /* ... tout ton CSS au-dessus reste identique ... */
 
-    body {
-      background: url("ezgif-429320cb4399fc.gif") no-repeat center center fixed;
-      background-size: cover;
-      font-family: 'Segoe UI', sans-serif;
-      text-align: center;
-      color: white;
-      min-height: 100vh;
-    }
+  .copy-button, .discord-button {
+    background: rgba(255, 255, 255, 0.08);
+    color: #fff;
+    padding: 14px 30px;
+    margin-top: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 30px;
+    font-size: 1em;
+    cursor: pointer;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+  }
 
-    .ip-text {
-      margin-top: 50px;
-      font-size: 24px;
-      font-weight: bold;
-      background: rgba(0, 0, 0, 0.5);
-      display: inline-block;
-      padding: 12px 24px;
-      border-radius: 15px;
-      border: 2px solid #00ffff;
-      box-shadow: 0 0 20px rgba(0, 255, 255, 0.4);
-      backdrop-filter: blur(6px);
-    }
+  .copy-button:hover, .discord-button:hover {
+    background: rgba(255, 255, 255, 0.15);
+    transform: scale(1.03);
+    box-shadow: 0 6px 35px rgba(0, 0, 0, 0.3);
+  }
 
-    .ip-image {
-      margin-top: 20px;
-      max-width: 90%;
-      height: auto;
-      border-radius: 15px;
-      box-shadow: 0 0 25px rgba(0, 0, 0, 0.7);
-    }
-
-    .buttons {
-      margin-top: 40px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 20px;
-    }
-
-    .glass-button {
-      padding: 15px 30px;
-      font-size: 18px;
-      font-weight: bold;
-      color: white;
-      background: rgba(255, 255, 255, 0.1);
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      border-radius: 20px;
-      backdrop-filter: blur(10px);
-      box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-
-    .glass-button:hover {
-      background: rgba(255, 255, 255, 0.2);
-      transform: scale(1.05);
-      box-shadow: 0 0 25px rgba(255, 255, 255, 0.4);
-    }
-
-    audio {
-      display: none;
-    }
-
-    @media (max-width: 600px) {
-      .ip-text {
-        font-size: 18px;
-        padding: 10px 15px;
-      }
-
-      .glass-button {
-        font-size: 16px;
-        padding: 12px 20px;
-      }
-    }
-  </style>
-</head>
-<body>
-
-  <!-- IP au-dessus de l’image -->
-  <div class="ip-text">
-    IP du serveur Minecraft : <span style="color: #00ffff;">realm.servehttp.com:25593</span>
-  </div>
-
-  <!-- Image IP -->
-  <div>
-    <img src="d22693f4-ce2d-47b9-8047-3154adf92a38.png" alt="Image IP du serveur" class="ip-image">
-  </div>
-
-  <!-- Boutons -->
-  <div class="buttons">
-    <button class="glass-button" onclick="copyIP()">Copier l'IP du serveur</button>
-    <button class="glass-button" onclick="joinDiscord()">Rejoindre le Discord</button>
-  </div>
-
-  <!-- Effet sonore -->
-  <audio id="magicSound" src="Magic-poof-sound-effect.mp3"></audio>
-
-  <!-- Script -->
-  <script>
-    function copyIP() {
-      navigator.clipboard.writeText("realm.servehttp.com:25593").then(() => {
-        alert("IP copiée dans le presse-papier !");
-      });
-    }
-
-    function joinDiscord() {
-      const sound = document.getElementById('magicSound');
-      sound.currentTime = 0;
-      sound.play();
-      setTimeout(() => {
-        window.open("https://discord.gg/C2Y4fAEBPh", "_blank");
-      }, 300); // petit délai pour entendre le son
-    }
-  </script>
-
-</body>
-</html>
+  .ip-image {
+    width: 350px; /* taille un peu réduite */
+    max-width: 90%;
+    border-radius: 18px;
+    margin-bottom: 15px;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+  }
+</style>
