@@ -1,31 +1,223 @@
-<style>
-  /* ... tout ton CSS au-dessus reste identique ... */
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>MisterRealm - Factions Lumière & Ténèbres</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap');
 
-  .copy-button, .discord-button {
-    background: rgba(255, 255, 255, 0.08);
-    color: #fff;
-    padding: 14px 30px;
-    margin-top: 20px;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 30px;
-    font-size: 1em;
-    cursor: pointer;
-    backdrop-filter: blur(10px);
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
-    transition: all 0.3s ease;
-  }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-  .copy-button:hover, .discord-button:hover {
-    background: rgba(255, 255, 255, 0.15);
-    transform: scale(1.03);
-    box-shadow: 0 6px 35px rgba(0, 0, 0, 0.3);
-  }
+    body, html {
+      font-family: 'Orbitron', sans-serif;
+      color: #fff;
+      scroll-behavior: smooth;
+    }
 
-  .ip-image {
-    width: 350px; /* taille un peu réduite */
-    max-width: 90%;
-    border-radius: 18px;
-    margin-bottom: 15px;
-    box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
-  }
-</style>
+    body {
+      background: url("ezgif-429320cb4399fc.gif") no-repeat center center fixed;
+      background-size: cover;
+      position: relative;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      z-index: -1;
+    }
+
+    header {
+      padding: 50px 20px;
+      text-align: center;
+    }
+
+    header h1 {
+      font-size: 3em;
+      color: #ffd700;
+      margin-bottom: 10px;
+    }
+
+    header p {
+      font-size: 1.2em;
+      color: #ccc;
+    }
+
+    .section {
+      padding: 60px 20px;
+      text-align: center;
+    }
+
+    .section h2 {
+      font-size: 2.5em;
+      margin-bottom: 20px;
+      color: #00ffff;
+    }
+
+    .section p {
+      max-width: 800px;
+      margin: auto;
+      font-size: 1.1em;
+      color: #ddd;
+    }
+
+    .ip-container {
+      margin-top: 40px;
+    }
+
+    .ip-image {
+      width: 350px;
+      max-width: 90%;
+      border-radius: 18px;
+      margin-bottom: 15px;
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+    }
+
+    .copy-button, .discord-button {
+      background: rgba(255, 255, 255, 0.08);
+      color: #fff;
+      padding: 14px 30px;
+      margin-top: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 30px;
+      font-size: 1em;
+      cursor: pointer;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+      transition: all 0.3s ease;
+    }
+
+    .copy-button:hover, .discord-button:hover {
+      background: rgba(255, 255, 255, 0.15);
+      transform: scale(1.03);
+      box-shadow: 0 6px 35px rgba(0, 0, 0, 0.3);
+    }
+
+    .factions {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 40px;
+      margin-top: 30px;
+    }
+
+    .faction-card {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border-radius: 12px;
+      padding: 20px;
+      width: 300px;
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+    }
+
+    .faction-card h3 {
+      margin-bottom: 10px;
+      font-size: 1.5em;
+      color: #fff;
+    }
+
+    .faction-card p {
+      font-size: 1em;
+      color: #ccc;
+    }
+
+    footer {
+      background-color: rgba(0, 0, 0, 0.7);
+      padding: 20px;
+      text-align: center;
+      color: #aaa;
+      margin-top: 50px;
+    }
+
+    @media (max-width: 768px) {
+      header h1 {
+        font-size: 2em;
+      }
+
+      .section h2 {
+        font-size: 2em;
+      }
+
+      .factions {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>✨ MisterRealm</h1>
+    <p>Factions Lumière & Ténèbres - PvP | Magie | Quêtes | Conquête</p>
+  </header>
+
+  <section class="section" id="presentation">
+    <h2>Bienvenue sur MisterRealm</h2>
+    <p>Un serveur Minecraft unique en son genre où la guerre entre la Lumière et les Ténèbres fait rage. Choisissez votre camp, développez vos pouvoirs, bâtissez votre empire et partez à la conquête du royaume !</p>
+
+    <div class="ip-container">
+      <h3>IP du serveur</h3>
+      <img src="d22693f4-ce2d-47b9-8047-3154adf92a38.png" alt="IP Serveur" class="ip-image">
+      <br>
+      <button class="copy-button" onclick="copyIP()">📋 Copier l'IP : realm.servehttp.com:25593</button>
+    </div>
+
+    <br>
+    <a href="https://discord.gg/C2Y4fAEBPh" target="_blank">
+      <button class="discord-button">💬 Rejoindre le Discord</button>
+    </a>
+  </section>
+
+  <section class="section" id="factions">
+    <h2>Les Factions</h2>
+    <div class="factions">
+      <div class="faction-card">
+        <h3>☀️ Faction Lumière</h3>
+        <p>Les défenseurs de l’ordre, de la paix et de la justice. Accédez à des pouvoirs de soin, de lumière divine et d’invocation céleste.</p>
+      </div>
+      <div class="faction-card">
+        <h3>🌑 Faction Ténèbres</h3>
+        <p>Les maîtres de l’ombre, de la ruse et du chaos. Maîtrisez la magie noire, les illusions et la destruction pure.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    &copy; 2025 MisterRealm - Tous droits réservés.
+  </footer>
+
+  <!-- 🔊 Son magique -->
+  <audio id="magicSound" src="Magic-poof-sound-effect.mp3" preload="auto"></audio>
+
+  <script>
+    function copyIP() {
+      const ip = "realm.servehttp.com:25593";
+      navigator.clipboard.writeText(ip).then(() => {
+        alert("IP copiée dans le presse-papiers !");
+      });
+    }
+
+    // Effet sonore sur le bouton Discord
+    document.addEventListener("DOMContentLoaded", function () {
+      const discordButton = document.querySelector(".discord-button");
+      const magicSound = document.getElementById("magicSound");
+
+      discordButton.addEventListener("click", () => {
+        magicSound.currentTime = 0;
+        magicSound.play();
+      });
+    });
+  </script>
+</body>
+</html>
