@@ -118,7 +118,6 @@
       padding: 20px;
       width: 300px;
       box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
-      text-align: left;
     }
 
     .faction-card h3 {
@@ -131,7 +130,6 @@
       color: #fff;
     }
 
-    /* ✅ Alignement parfait image + texte */
     .faction-content {
       display: flex;
       align-items: center;
@@ -148,18 +146,36 @@
       margin-top: 0;
     }
 
-    .faction-content p {
-      font-size: 1em;
-      color: #ccc;
-      line-height: 1.4;
-    }
-
     footer {
       background-color: rgba(0, 0, 0, 0.7);
       padding: 20px;
       text-align: center;
       color: #aaa;
       margin-top: 50px;
+    }
+
+    /* === Bouton Membre Staff === */
+    .staff-button {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      padding: 12px 25px;
+      background: rgba(255, 255, 255, 0.08);
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 30px;
+      font-size: 1em;
+      text-decoration: none;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+      transition: all 0.3s ease;
+      z-index: 1000;
+    }
+
+    .staff-button:hover {
+      background: rgba(255, 255, 255, 0.15);
+      transform: scale(1.05);
+      box-shadow: 0 6px 35px rgba(0, 0, 0, 0.3);
     }
 
     @media (max-width: 768px) {
@@ -179,6 +195,9 @@
   </style>
 </head>
 <body>
+
+  <!-- 🔘 Bouton Membre Staff -->
+  <a href="staff.html" class="staff-button">👑 Membre Staff</a>
 
   <header>
     <h1>✨ Draevorn</h1>
@@ -205,8 +224,6 @@
   <section class="section" id="factions">
     <h2>Les Factions</h2>
     <div class="factions">
-      
-      <!-- ☀️ Faction Lumière -->
       <div class="faction-card">
         <h3>☀️ Faction Lumière</h3>
         <div class="faction-content">
@@ -214,8 +231,6 @@
           <p>Les défenseurs de l’ordre, de la paix et de la justice. Accédez à des pouvoirs de soin, de lumière divine et d’invocation céleste.</p>
         </div>
       </div>
-
-      <!-- 🌑 Faction Ténèbres -->
       <div class="faction-card">
         <h3>🌑 Faction Ténèbres</h3>
         <div class="faction-content">
@@ -223,7 +238,6 @@
           <p>Les maîtres de l’ombre, de la ruse et du chaos. Maîtrisez la magie noire, les illusions et la destruction pure.</p>
         </div>
       </div>
-
     </div>
   </section>
 
@@ -235,6 +249,7 @@
   <audio id="magicSound" src="Magic-poof-sound-effect.mp3" preload="auto"></audio>
 
   <script>
+    // Copier IP
     function copyIP() {
       const ip = "realm.servehttp.com:25593";
       navigator.clipboard.writeText(ip).then(() => {
@@ -242,15 +257,27 @@
       });
     }
 
-    // Effet sonore sur le bouton Discord
+    // Effet sonore sur boutons
     document.addEventListener("DOMContentLoaded", function () {
-      const discordButton = document.querySelector(".discord-button");
       const magicSound = document.getElementById("magicSound");
 
-      discordButton.addEventListener("click", () => {
-        magicSound.currentTime = 0;
-        magicSound.play();
-      });
+      // Discord
+      const discordButton = document.querySelector(".discord-button");
+      if (discordButton) {
+        discordButton.addEventListener("click", () => {
+          magicSound.currentTime = 0;
+          magicSound.play();
+        });
+      }
+
+      // Staff
+      const staffButton = document.querySelector(".staff-button");
+      if (staffButton) {
+        staffButton.addEventListener("click", () => {
+          magicSound.currentTime = 0;
+          magicSound.play();
+        });
+      }
     });
   </script>
 </body>
