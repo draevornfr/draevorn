@@ -122,15 +122,19 @@
     }
 
     .faction-card h3 {
-      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 15px;
       font-size: 1.5em;
       color: #fff;
-      text-align: center;
     }
 
+    /* ✅ Alignement parfait image + texte */
     .faction-content {
       display: flex;
-      align-items: flex-start;
+      align-items: center;
       gap: 12px;
     }
 
@@ -140,6 +144,8 @@
       border-radius: 8px;
       box-shadow: 0 0 15px rgba(255, 255, 255, 0.25);
       flex-shrink: 0;
+      object-fit: contain;
+      margin-top: 0;
     }
 
     .faction-content p {
@@ -200,7 +206,7 @@
     <h2>Les Factions</h2>
     <div class="factions">
       
-      <!-- Faction Lumière -->
+      <!-- ☀️ Faction Lumière -->
       <div class="faction-card">
         <h3>☀️ Faction Lumière</h3>
         <div class="faction-content">
@@ -209,7 +215,7 @@
         </div>
       </div>
 
-      <!-- Faction Ténèbres -->
+      <!-- 🌑 Faction Ténèbres -->
       <div class="faction-card">
         <h3>🌑 Faction Ténèbres</h3>
         <div class="faction-content">
