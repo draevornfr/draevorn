@@ -17,6 +17,7 @@
       font-family: 'Orbitron', sans-serif;
       color: #fff;
       scroll-behavior: smooth;
+      overflow-x: hidden;
     }
 
     body {
@@ -34,6 +35,41 @@
       height: 100%;
       background: rgba(0, 0, 0, 0.7);
       z-index: -1;
+    }
+
+    /* === Écran d'intro === */
+    #intro-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at center, #000, #111);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      color: #ffd700;
+      font-size: 2.8em;
+      letter-spacing: 2px;
+      text-align: center;
+      z-index: 2000;
+      animation: fadeOut 2s ease forwards;
+      animation-delay: 3s;
+    }
+
+    #intro-screen h1 {
+      animation: glow 2s ease-in-out infinite alternate;
+      text-shadow: 0 0 20px #ffd700;
+    }
+
+    @keyframes glow {
+      from { text-shadow: 0 0 15px #ffd700, 0 0 30px #ffdf80; }
+      to { text-shadow: 0 0 30px #ffea80, 0 0 50px #ffd700; }
+    }
+
+    @keyframes fadeOut {
+      to { opacity: 0; visibility: hidden; }
     }
 
     header {
@@ -196,6 +232,11 @@
 </head>
 <body>
 
+  <!-- 🔘 Écran d'intro -->
+  <div id="intro-screen">
+    <h1>✨ Site Officiel Draevorn ✨</h1>
+  </div>
+
   <!-- 🔘 Bouton Membre Staff -->
   <a href="staff.html" class="staff-button">👑 Membre Staff</a>
 
@@ -257,27 +298,21 @@
       });
     }
 
-    // Effet sonore sur boutons
+    // Sons sur les boutons
     document.addEventListener("DOMContentLoaded", function () {
       const magicSound = document.getElementById("magicSound");
 
-      // Discord
       const discordButton = document.querySelector(".discord-button");
-      if (discordButton) {
-        discordButton.addEventListener("click", () => {
-          magicSound.currentTime = 0;
-          magicSound.play();
-        });
-      }
-
-      // Staff
       const staffButton = document.querySelector(".staff-button");
-      if (staffButton) {
-        staffButton.addEventListener("click", () => {
-          magicSound.currentTime = 0;
-          magicSound.play();
-        });
-      }
+
+      [discordButton, staffButton].forEach(btn => {
+        if (btn) {
+          btn.addEventListener("click", () => {
+            magicSound.currentTime = 0;
+            magicSound.play();
+          });
+        }
+      });
     });
   </script>
 </body>
