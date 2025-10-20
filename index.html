@@ -118,17 +118,34 @@
       padding: 20px;
       width: 300px;
       box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+      text-align: left;
     }
 
     .faction-card h3 {
       margin-bottom: 10px;
       font-size: 1.5em;
       color: #fff;
+      text-align: center;
     }
 
-    .faction-card p {
+    .faction-content {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+
+    .faction-content img {
+      width: 60px;
+      height: 60px;
+      border-radius: 8px;
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.25);
+      flex-shrink: 0;
+    }
+
+    .faction-content p {
       font-size: 1em;
       color: #ccc;
+      line-height: 1.4;
     }
 
     footer {
@@ -182,14 +199,25 @@
   <section class="section" id="factions">
     <h2>Les Factions</h2>
     <div class="factions">
+      
+      <!-- Faction Lumière -->
       <div class="faction-card">
         <h3>☀️ Faction Lumière</h3>
-        <p>Les défenseurs de l’ordre, de la paix et de la justice. Accédez à des pouvoirs de soin, de lumière divine et d’invocation céleste.</p>
+        <div class="faction-content">
+          <img src="ChatGPT_Image_20_oct._2025_22_12_17_upscayl_4x_digital-art-4x.png" alt="Symbole Lumière">
+          <p>Les défenseurs de l’ordre, de la paix et de la justice. Accédez à des pouvoirs de soin, de lumière divine et d’invocation céleste.</p>
+        </div>
       </div>
+
+      <!-- Faction Ténèbres -->
       <div class="faction-card">
         <h3>🌑 Faction Ténèbres</h3>
-        <p>Les maîtres de l’ombre, de la ruse et du chaos. Maîtrisez la magie noire, les illusions et la destruction pure.</p>
+        <div class="faction-content">
+          <img src="ChatGPT_Image_20_oct._2025_22_17_25_upscayl_4x_digital-art-4x.png" alt="Symbole Ténèbres">
+          <p>Les maîtres de l’ombre, de la ruse et du chaos. Maîtrisez la magie noire, les illusions et la destruction pure.</p>
+        </div>
       </div>
+
     </div>
   </section>
 
