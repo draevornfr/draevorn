@@ -261,7 +261,7 @@
     <h1>✨ Site Officiel Draevorn ✨</h1>
   </div>
 
-  <!-- 🔘 Boutons fixes -->
+  <!-- 🔘 Boutons -->
   <a href="staff.html" class="staff-button">👑 Membre Staff</a>
   <a href="histoire.html" class="info-button">📖 Information Histoire</a>
 
@@ -270,4 +270,76 @@
     <p>Factions Lumière & Ténèbres - PvP | Magie | Quêtes | Conquête</p>
   </header>
 
-  <!-- le reste de ton code reste inchangé -->
+  <section class="section" id="presentation">
+    <h2>Bienvenue sur Draevorn</h2>
+    <p>Un serveur Minecraft unique en son genre où la guerre entre la Lumière et les Ténèbres fait rage. Choisissez votre camp, développez vos pouvoirs, bâtissez votre empire et partez à la conquête du royaume !</p>
+
+    <div class="ip-container">
+      <h3>IP du serveur</h3>
+      <img src="image_2025-10-18_192004157.png" alt="IP Serveur" class="ip-image">
+      <br>
+      <button class="copy-button" onclick="copyIP()">📋 Copier l'IP : realm.servehttp.com:25593</button>
+    </div>
+
+    <br>
+    <a href="https://discord.gg/C2Y4fAEBPh" target="_blank">
+      <button class="discord-button">💬 Rejoindre le Discord</button>
+    </a>
+  </section>
+
+  <section class="section" id="factions">
+    <h2>Les Factions</h2>
+    <div class="factions">
+      <div class="faction-card">
+        <h3>☀️ Faction Lumière</h3>
+        <div class="faction-content">
+          <img src="ChatGPT_Image_20_oct._2025_22_12_17_upscayl_4x_digital-art-4x.png" alt="Symbole Lumière">
+          <p>Les défenseurs de l’ordre, de la paix et de la justice. Accédez à des pouvoirs de soin, de lumière divine et d’invocation céleste.</p>
+        </div>
+      </div>
+      <div class="faction-card">
+        <h3>🌑 Faction Ténèbres</h3>
+        <div class="faction-content">
+          <img src="ChatGPT_Image_20_oct._2025_22_17_25_upscayl_4x_digital-art-4x.png" alt="Symbole Ténèbres">
+          <p>Les maîtres de l’ombre, de la ruse et du chaos. Maîtrisez la magie noire, les illusions et la destruction pure.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    &copy; 2025 Draevorn - Tous droits réservés.
+  </footer>
+
+  <!-- 🔊 Son magique -->
+  <audio id="magicSound" src="Magic-poof-sound-effect.mp3" preload="auto"></audio>
+
+  <script>
+    // Copier IP
+    function copyIP() {
+      const ip = "realm.servehttp.com:25593";
+      navigator.clipboard.writeText(ip).then(() => {
+        alert("IP copiée dans le presse-papiers !");
+      });
+    }
+
+    // Sons sur les boutons
+    document.addEventListener("DOMContentLoaded", function () {
+      const magicSound = document.getElementById("magicSound");
+
+      const discordButton = document.querySelector(".discord-button");
+      const staffButton = document.querySelector(".staff-button");
+      const infoButton = document.querySelector(".info-button");
+
+      [discordButton, staffButton, infoButton].forEach(btn => {
+        if (btn) {
+          btn.addEventListener("click", () => {
+            magicSound.currentTime = 0;
+            magicSound.play();
+          });
+        }
+      });
+    });
+  </script>
+</body>
+</html>
