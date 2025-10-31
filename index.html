@@ -315,4 +315,66 @@
     });
   </script>
 </body>
+<script>
+  // Ton code existant pour copyIP et sons
+  function copyIP() {
+    const ip = "draevorn.serveminecraft.net:25595
+";
+    navigator.clipboard.writeText(ip).then(() => {
+      alert("IP copiée dans le presse-papiers !");
+    });
+  }
+
+  document.addEventListener("DOMContentLoaded", function () {
+    const magicSound = document.getElementById("magicSound");
+    const cinemaClickSound = document.getElementById("cinemaClickSound");
+    const discordButton = document.querySelector(".discord-button");
+    const staffButton = document.querySelector(".staff-button");
+    const infoButton = document.querySelector(".info-button");
+    const cinemaButton = document.querySelector(".cinema-button");
+
+    if (cinemaButton) {
+      cinemaButton.addEventListener("click", function () {
+        cinemaClickSound.currentTime = 0;
+        cinemaClickSound.play();
+      });
+    }
+
+    [discordButton, staffButton, infoButton].forEach(btn => {
+      if (btn) {
+        btn.addEventListener("click", () => {
+          magicSound.currentTime = 0;
+          magicSound.play();
+        });
+      }
+    });
+
+    // ✅ Ajouter la vérification du serveur ici
+    checkServerStatus();
+  });
+
+  // Vérifie le statut du serveur Minecraft
+  function checkServerStatus() {
+    const statusText = document.getElementById('status-text');
+    const serverIP = "realm.servehttp.com";
+    const serverPort = 25595;
+
+    fetch(`https://api.mcsrvstat.us/2/${serverIP}:${serverPort}`)
+      .then(response => response.json())
+      .then(data => {
+        if (data.online) {
+          statusText.textContent = "En ligne ✅";
+          statusText.className = "server-online";
+        } else {
+          statusText.textContent = "Hors ligne ❌";
+          statusText.className = "server-offline";
+        }
+      })
+      .catch(() => {
+        statusText.textContent = "Hors ligne ❌";
+        statusText.className = "server-offline";
+      });
+  }
+</script>
+
 </html>
