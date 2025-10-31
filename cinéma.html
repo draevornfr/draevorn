@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>🎥 Planning Cinéma - Draevorn</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap');
+
+    body {
+      font-family: 'Orbitron', sans-serif;
+      background: radial-gradient(circle at top, #000, #111);
+      color: #fff;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+    }
+
+    header {
+      padding: 40px 20px;
+    }
+
+    header h1 {
+      color: #ffd700;
+      font-size: 2.5em;
+      text-shadow: 0 0 20px #ffd700;
+    }
+
+    .film-list {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 30px;
+      padding: 20px;
+    }
+
+    .film-card {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 15px;
+      width: 300px;
+      padding: 20px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 0 25px rgba(255, 255, 255, 0.1);
+      transition: transform 0.3s ease;
+    }
+
+    .film-card:hover {
+      transform: scale(1.05);
+    }
+
+    .film-card img {
+      width: 100%;
+      border-radius: 10px;
+      margin-bottom: 15px;
+    }
+
+    .film-card h3 {
+      color: #00ffff;
+      margin-bottom: 10px;
+    }
+
+    .film-card p {
+      color: #ccc;
+      font-size: 0.95em;
+    }
+
+    .back-button {
+      display: inline-block;
+      margin: 40px auto;
+      padding: 12px 25px;
+      background: rgba(255, 255, 255, 0.08);
+      color: #fff;
+      border-radius: 30px;
+      text-decoration: none;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(10px);
+      transition: 0.3s;
+    }
+
+    .back-button:hover {
+      background: rgba(255, 255, 255, 0.15);
+      transform: scale(1.05);
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>🎬 Planning Cinéma Draevorn</h1>
+    <p>Découvrez les prochaines projections du Royaume ! 🍿</p>
+  </header>
+
+  <section class="film-list">
+    <div class="film-card">
+      <img src="https://via.placeholder.com/300x180.png?text=Film+1" alt="Film 1">
+      <h3>⚔️ Bataille de Midgard</h3>
+      <p>20h00 - Grande salle de Lumière</p>
+    </div>
+
+    <div class="film-card">
+      <img src="https://via.placeholder.com/300x180.png?text=Film+2" alt="Film 2">
+      <h3>🌑 Ombres et Gardiens</h3>
+      <p>22h30 - Temple des Ténèbres</p>
+    </div>
+
+    <div class="film-card">
+      <img src="https://via.placeholder.com/300x180.png?text=Film+3" alt="Film 3">
+      <h3>✨ Renaissance de l’Équilibre</h3>
+      <p>00h00 - Salle du Phoenix</p>
+    </div>
+  </section>
+
+  <a href="index.html" class="back-button">⬅️ Retour à Draevorn</a>
+
+</body>
+</html>
