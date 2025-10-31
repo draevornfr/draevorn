@@ -7,11 +7,7 @@
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap');
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
 
     body, html {
       font-family: 'Orbitron', sans-serif;
@@ -40,10 +36,8 @@
     /* === Écran d'intro === */
     #intro-screen {
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
       background: radial-gradient(circle at center, #000, #111);
       display: flex;
       align-items: center;
@@ -106,9 +100,7 @@
       color: #ddd;
     }
 
-    .ip-container {
-      margin-top: 40px;
-    }
+    .ip-container { margin-top: 40px; }
 
     .ip-image {
       width: 350px;
@@ -179,7 +171,6 @@
       box-shadow: 0 0 15px rgba(255, 255, 255, 0.25);
       flex-shrink: 0;
       object-fit: contain;
-      margin-top: 0;
     }
 
     footer {
@@ -190,11 +181,10 @@
       margin-top: 50px;
     }
 
-    /* === Bouton Membre Staff === */
-    .staff-button {
+    /* === Boutons fixes === */
+    .staff-button, .cinema-button, .info-button {
       position: fixed;
       top: 20px;
-      left: 20px;
       padding: 12px 25px;
       background: rgba(255, 255, 255, 0.08);
       color: #fff;
@@ -208,61 +198,34 @@
       z-index: 1000;
     }
 
-    .staff-button:hover {
-      background: rgba(255, 255, 255, 0.15);
-      transform: scale(1.05);
-      box-shadow: 0 6px 35px rgba(0, 0, 0, 0.3);
-    }
+    .staff-button { left: 20px; }
+    .cinema-button { left: 220px; }
+    .info-button { right: 20px; }
 
-    /* === Bouton Information Histoire === */
-    .info-button {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      padding: 12px 25px;
-      background: rgba(255, 255, 255, 0.08);
-      color: #fff;
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      border-radius: 30px;
-      font-size: 1em;
-      text-decoration: none;
-      backdrop-filter: blur(10px);
-      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
-      transition: all 0.3s ease;
-      z-index: 1000;
-    }
-
-    .info-button:hover {
+    .staff-button:hover, .cinema-button:hover, .info-button:hover {
       background: rgba(255, 255, 255, 0.15);
       transform: scale(1.05);
       box-shadow: 0 6px 35px rgba(0, 0, 0, 0.3);
     }
 
     @media (max-width: 768px) {
-      header h1 {
-        font-size: 2em;
-      }
-
-      .section h2 {
-        font-size: 2em;
-      }
-
-      .factions {
-        flex-direction: column;
-        align-items: center;
-      }
+      .cinema-button { left: 20px; top: 70px; }
+      header h1 { font-size: 2em; }
+      .section h2 { font-size: 2em; }
+      .factions { flex-direction: column; align-items: center; }
     }
   </style>
 </head>
 <body>
 
-  <!-- 🔘 Écran d'intro -->
+  <!-- Écran d'intro -->
   <div id="intro-screen">
     <h1>✨ Site Officiel Draevorn ✨</h1>
   </div>
 
   <!-- 🔘 Boutons -->
   <a href="staff.html" class="staff-button">👑 Membre Staff</a>
+  <a href="cinema.html" class="cinema-button">🎥 Planning Cinéma</a>
   <a href="histoire.html" class="info-button">📖 Information Histoire</a>
 
   <header>
@@ -272,7 +235,7 @@
 
   <section class="section" id="presentation">
     <h2>Bienvenue sur Draevorn</h2>
-    <p>Un serveur Minecraft unique en son genre où la guerre entre la Lumière et les Ténèbres fait rage. Choisissez votre camp, développez vos pouvoirs, bâtissez votre empire et partez à la conquête du royaume !</p>
+    <p>Un serveur Minecraft unique où la guerre entre la Lumière et les Ténèbres fait rage. Choisissez votre camp, développez vos pouvoirs et partez à la conquête du royaume !</p>
 
     <div class="ip-container">
       <h3>IP du serveur</h3>
@@ -294,14 +257,14 @@
         <h3>☀️ Faction Lumière</h3>
         <div class="faction-content">
           <img src="ChatGPT_Image_20_oct._2025_22_12_17_upscayl_4x_digital-art-4x.png" alt="Symbole Lumière">
-          <p>Les défenseurs de l’ordre, de la paix et de la justice. Accédez à des pouvoirs de soin, de lumière divine et d’invocation céleste.</p>
+          <p>Les défenseurs de la justice. Accédez à des pouvoirs de lumière divine et d’invocation céleste.</p>
         </div>
       </div>
       <div class="faction-card">
         <h3>🌑 Faction Ténèbres</h3>
         <div class="faction-content">
           <img src="ChatGPT_Image_20_oct._2025_22_17_25_upscayl_4x_digital-art-4x.png" alt="Symbole Ténèbres">
-          <p>Les maîtres de l’ombre, de la ruse et du chaos. Maîtrisez la magie noire, les illusions et la destruction pure.</p>
+          <p>Les maîtres du chaos et des ombres. Maîtrisez la magie noire et les illusions destructrices.</p>
         </div>
       </div>
     </div>
@@ -311,11 +274,9 @@
     &copy; 2025 Draevorn - Tous droits réservés.
   </footer>
 
-  <!-- 🔊 Son magique -->
   <audio id="magicSound" src="Magic-poof-sound-effect.mp3" preload="auto"></audio>
 
   <script>
-    // Copier IP
     function copyIP() {
       const ip = "realm.servehttp.com:25593";
       navigator.clipboard.writeText(ip).then(() => {
@@ -323,15 +284,14 @@
       });
     }
 
-    // Sons sur les boutons
     document.addEventListener("DOMContentLoaded", function () {
       const magicSound = document.getElementById("magicSound");
-
       const discordButton = document.querySelector(".discord-button");
       const staffButton = document.querySelector(".staff-button");
       const infoButton = document.querySelector(".info-button");
+      const cinemaButton = document.querySelector(".cinema-button");
 
-      [discordButton, staffButton, infoButton].forEach(btn => {
+      [discordButton, staffButton, infoButton, cinemaButton].forEach(btn => {
         if (btn) {
           btn.addEventListener("click", () => {
             magicSound.currentTime = 0;
