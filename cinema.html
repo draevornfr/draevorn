@@ -1,0 +1,122 @@
+ir<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>🎥 Planning Cinéma - Draevorn</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap');
+
+    body {
+      font-family: 'Orbitron', sans-serif;
+      background: url("ezgif-429320cb4399fc.gif") no-repeat center center fixed;
+      background-size: cover;
+      color: white;
+      margin: 0;
+      text-align: center;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.75);
+      z-index: -1;
+    }
+
+    h1 {
+      margin-top: 50px;
+      font-size: 2.5em;
+      color: #ffd700;
+      text-shadow: 0 0 20px #ffd700;
+    }
+
+    .planning {
+      margin-top: 50px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 25px;
+    }
+
+    .film-card {
+      width: 80%;
+      max-width: 700px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 20px;
+      padding: 25px;
+      box-shadow: 0 0 20px rgba(255,255,255,0.15);
+      backdrop-filter: blur(10px);
+      transition: transform 0.3s ease;
+    }
+
+    .film-card:hover {
+      transform: scale(1.03);
+      background: rgba(255,255,255,0.1);
+    }
+
+    .film-title {
+      font-size: 1.5em;
+      color: #00ffff;
+      margin-bottom: 10px;
+    }
+
+    .film-info {
+      color: #ccc;
+      font-size: 1em;
+    }
+
+    a.back-button {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      background: rgba(255,255,255,0.08);
+      color: white;
+      text-decoration: none;
+      padding: 12px 25px;
+      border-radius: 30px;
+      border: 1px solid rgba(255,255,255,0.2);
+      backdrop-filter: blur(10px);
+      transition: 0.3s;
+    }
+
+    a.back-button:hover {
+      background: rgba(255,255,255,0.15);
+      transform: scale(1.05);
+    }
+
+    footer {
+      margin-top: 60px;
+      color: #aaa;
+      font-size: 0.9em;
+    }
+  </style>
+</head>
+<body>
+  <a href="index.html" class="back-button">🏠 Retour à l'accueil</a>
+  <h1>🎬 Planning Cinéma Draevorn</h1>
+
+  <div class="planning">
+    <div class="film-card">
+      <div class="film-title">📅 A venir - "soon"</div>
+      <div class="film-info">soon.</div>
+    </div>
+
+    <div class="film-card">
+      <div class="film-title">📅 A venir - "soon"</div>
+      <div class="film-info">soon</div>
+    </div>
+
+    <div class="film-card">
+      <div class="film-title">📅 A venir - "soon"</div>
+      <div class="film-info">soon</div>
+    </div>
+  </div>
+
+  <footer>
+    &copy; 2025 Draevorn - Tous droits réservés.
+  </footer>
+</body>
+</html>
