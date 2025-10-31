@@ -25,10 +25,8 @@
     body::before {
       content: "";
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
       background: rgba(0, 0, 0, 0.7);
       z-index: -1;
     }
@@ -274,7 +272,9 @@
     &copy; 2025 Draevorn - Tous droits réservés.
   </footer>
 
+  <!-- Audios -->
   <audio id="magicSound" src="Magic-poof-sound-effect.mp3" preload="auto"></audio>
+  <audio id="cinemaClickSound" src="button-click-289742.mp3" preload="auto"></audio>
 
   <script>
     function copyIP() {
@@ -286,12 +286,22 @@
 
     document.addEventListener("DOMContentLoaded", function () {
       const magicSound = document.getElementById("magicSound");
+      const cinemaClickSound = document.getElementById("cinemaClickSound");
       const discordButton = document.querySelector(".discord-button");
       const staffButton = document.querySelector(".staff-button");
       const infoButton = document.querySelector(".info-button");
       const cinemaButton = document.querySelector(".cinema-button");
 
-      [discordButton, staffButton, infoButton, cinemaButton].forEach(btn => {
+      // Bouton cinéma : joue son click
+      if (cinemaButton) {
+        cinemaButton.addEventListener("click", function () {
+          cinemaClickSound.currentTime = 0;
+          cinemaClickSound.play();
+        });
+      }
+
+      // Les autres boutons
+      [discordButton, staffButton, infoButton].forEach(btn => {
         if (btn) {
           btn.addEventListener("click", () => {
             magicSound.currentTime = 0;
