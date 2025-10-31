@@ -31,7 +31,6 @@
       z-index: -1;
     }
 
-    /* === Écran d'intro === */
     #intro-screen {
       position: fixed;
       top: 0; left: 0;
@@ -47,7 +46,7 @@
       text-align: center;
       z-index: 2000;
       animation: fadeOut 2s ease forwards;
-      animation-delay: 1s;
+      animation-delay: 3s;
     }
 
     #intro-screen h1 {
@@ -64,49 +63,16 @@
       to { opacity: 0; visibility: hidden; }
     }
 
-    header {
-      padding: 50px 20px;
-      text-align: center;
-    }
+    header { padding: 50px 20px; text-align: center; }
+    header h1 { font-size: 3em; color: #ffd700; margin-bottom: 10px; }
+    header p { font-size: 1.2em; color: #ccc; }
 
-    header h1 {
-      font-size: 3em;
-      color: #ffd700;
-      margin-bottom: 10px;
-    }
-
-    header p {
-      font-size: 1.2em;
-      color: #ccc;
-    }
-
-    .section {
-      padding: 60px 20px;
-      text-align: center;
-    }
-
-    .section h2 {
-      font-size: 2.5em;
-      margin-bottom: 20px;
-      color: #00ffff;
-    }
-
-    .section p {
-      max-width: 800px;
-      margin: auto;
-      font-size: 1.1em;
-      color: #ddd;
-    }
+    .section { padding: 60px 20px; text-align: center; }
+    .section h2 { font-size: 2.5em; margin-bottom: 20px; color: #00ffff; }
+    .section p { max-width: 800px; margin: auto; font-size: 1.1em; color: #ddd; }
 
     .ip-container { margin-top: 40px; }
-
-    .ip-image {
-      width: 350px;
-      max-width: 90%;
-      border-radius: 18px;
-      margin-bottom: 15px;
-      box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
-    }
+    .ip-image { width: 350px; max-width: 90%; border-radius: 18px; margin-bottom: 15px; box-shadow: 0 0 20px rgba(255, 255, 255, 0.3); }
 
     .copy-button, .discord-button {
       background: rgba(255, 255, 255, 0.08);
@@ -128,58 +94,18 @@
       box-shadow: 0 6px 35px rgba(0, 0, 0, 0.3);
     }
 
-    .factions {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 40px;
-      margin-top: 30px;
-    }
+    .server-status { margin-top: 15px; font-size: 1.2em; }
+    .server-online { color: #4CAF50; }
+    .server-offline { color: #F44336; }
 
-    .faction-card {
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(10px);
-      border-radius: 12px;
-      padding: 20px;
-      width: 300px;
-      box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
-    }
+    .factions { display: flex; flex-wrap: wrap; justify-content: center; gap: 40px; margin-top: 30px; }
+    .faction-card { background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px); border-radius: 12px; padding: 20px; width: 300px; box-shadow: 0 0 20px rgba(255, 255, 255, 0.1); }
+    .faction-card h3 { display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 15px; font-size: 1.5em; color: #fff; }
+    .faction-content { display: flex; align-items: center; gap: 12px; }
+    .faction-content img { width: 60px; height: 60px; border-radius: 8px; box-shadow: 0 0 15px rgba(255, 255, 255, 0.25); flex-shrink: 0; object-fit: contain; }
 
-    .faction-card h3 {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      margin-bottom: 15px;
-      font-size: 1.5em;
-      color: #fff;
-    }
+    footer { background-color: rgba(0, 0, 0, 0.7); padding: 20px; text-align: center; color: #aaa; margin-top: 50px; }
 
-    .faction-content {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .faction-content img {
-      width: 60px;
-      height: 60px;
-      border-radius: 8px;
-      box-shadow: 0 0 15px rgba(255, 255, 255, 0.25);
-      flex-shrink: 0;
-      object-fit: contain;
-    }
-
-    footer {
-      background-color: rgba(0, 0, 0, 0.7);
-      padding: 20px;
-      text-align: center;
-      color: #aaa;
-      margin-top: 50px;
-    }
-
-    /* === Boutons fixes === */
     .staff-button, .cinema-button, .info-button {
       position: fixed;
       top: 20px;
@@ -216,12 +142,10 @@
 </head>
 <body>
 
-  <!-- Écran d'intro -->
   <div id="intro-screen">
     <h1>✨ Site Officiel Draevorn ✨</h1>
   </div>
 
-  <!-- 🔘 Boutons -->
   <a href="staff.html" class="staff-button">👑 Membre Staff</a>
   <a href="cinema.html" class="cinema-button">🎥 Planning Cinéma</a>
   <a href="histoire.html" class="info-button">📖 Information Histoire</a>
@@ -239,11 +163,12 @@
       <h3>IP du serveur</h3>
       <img src="image_2025-10-18_192004157.png" alt="IP Serveur" class="ip-image">
       <br>
-      <button class="copy-button" onclick="copyIP()">📋 Copier l'IP : realm.servehttp.com:25593</button>
+      <button class="copy-button" onclick="copyIP()">📋 Copier l'IP : draevorn.serveminecraft.net:25595</button>
+
+      <div class="server-status">
+        <p>Statut du serveur : <span id="status-text">Chargement...</span></p>
+      </div>
     </div>
-  <div class="server-status">
-   <p>Statut du serveur : <span id="status-text">Chargement...</span></p>
-</div>
 
     <br>
     <a href="https://discord.gg/C2Y4fAEBPh" target="_blank">
@@ -281,7 +206,7 @@
 
   <script>
     function copyIP() {
-      const ip = "realm.servehttp.com:25593";
+      const ip = "draevorn.serveminecraft.net:25595";
       navigator.clipboard.writeText(ip).then(() => {
         alert("IP copiée dans le presse-papiers !");
       });
@@ -295,7 +220,6 @@
       const infoButton = document.querySelector(".info-button");
       const cinemaButton = document.querySelector(".cinema-button");
 
-      // Bouton cinéma : joue son click
       if (cinemaButton) {
         cinemaButton.addEventListener("click", function () {
           cinemaClickSound.currentTime = 0;
@@ -303,7 +227,6 @@
         });
       }
 
-      // Les autres boutons
       [discordButton, staffButton, infoButton].forEach(btn => {
         if (btn) {
           btn.addEventListener("click", () => {
@@ -312,69 +235,32 @@
           });
         }
       });
-    });
-  </script>
-</body>
-<script>
-  // Ton code existant pour copyIP et sons
-  function copyIP() {
-    const ip = "draevorn.serveminecraft.net:25595
-";
-    navigator.clipboard.writeText(ip).then(() => {
-      alert("IP copiée dans le presse-papiers !");
-    });
-  }
 
-  document.addEventListener("DOMContentLoaded", function () {
-    const magicSound = document.getElementById("magicSound");
-    const cinemaClickSound = document.getElementById("cinemaClickSound");
-    const discordButton = document.querySelector(".discord-button");
-    const staffButton = document.querySelector(".staff-button");
-    const infoButton = document.querySelector(".info-button");
-    const cinemaButton = document.querySelector(".cinema-button");
-
-    if (cinemaButton) {
-      cinemaButton.addEventListener("click", function () {
-        cinemaClickSound.currentTime = 0;
-        cinemaClickSound.play();
-      });
-    }
-
-    [discordButton, staffButton, infoButton].forEach(btn => {
-      if (btn) {
-        btn.addEventListener("click", () => {
-          magicSound.currentTime = 0;
-          magicSound.play();
-        });
-      }
+      // Vérification du statut serveur
+      checkServerStatus();
     });
 
-    // ✅ Ajouter la vérification du serveur ici
-    checkServerStatus();
-  });
+    function checkServerStatus() {
+      const statusText = document.getElementById('status-text');
+      const serverIP = "draevorn.serveminecraft.net";
+      const serverPort = 25595;
 
-  // Vérifie le statut du serveur Minecraft
-  function checkServerStatus() {
-    const statusText = document.getElementById('status-text');
-    const serverIP = "realm.servehttp.com";
-    const serverPort = 25595;
-
-    fetch(`https://api.mcsrvstat.us/2/${serverIP}:${serverPort}`)
-      .then(response => response.json())
-      .then(data => {
-        if (data.online) {
-          statusText.textContent = "En ligne ✅";
-          statusText.className = "server-online";
-        } else {
+      fetch(`https://api.mcsrvstat.us/2/${serverIP}:${serverPort}`)
+        .then(response => response.json())
+        .then(data => {
+          if (data.online) {
+            statusText.textContent = "En ligne ✅";
+            statusText.className = "server-online";
+          } else {
+            statusText.textContent = "Hors ligne ❌";
+            statusText.className = "server-offline";
+          }
+        })
+        .catch(() => {
           statusText.textContent = "Hors ligne ❌";
           statusText.className = "server-offline";
-        }
-      })
-      .catch(() => {
-        statusText.textContent = "Hors ligne ❌";
-        statusText.className = "server-offline";
-      });
-  }
-</script>
-
+        });
+    }
+  </script>
+</body>
 </html>
