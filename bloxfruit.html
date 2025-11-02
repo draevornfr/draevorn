@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>🍍 Blox Fruits - Draevorn Univers</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap');
+
+    body {
+      font-family: 'Orbitron', sans-serif;
+      background: url("ezgif-429320cb4399fc.gif") no-repeat center center fixed;
+      background-size: cover;
+      color: white;
+      margin: 0;
+      text-align: center;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.75);
+      z-index: -1;
+    }
+
+    header {
+      padding: 50px 20px;
+    }
+
+    header h1 {
+      color: #00ffff;
+      text-shadow: 0 0 25px #00ffff;
+      font-size: 2.5em;
+    }
+
+    header p {
+      color: #ccc;
+      font-size: 1.1em;
+      margin-top: 10px;
+    }
+
+    .fruit-section {
+      max-width: 1000px;
+      margin: 40px auto;
+      padding: 20px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 25px;
+    }
+
+    .fruit-card {
+      width: 280px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 20px;
+      padding: 20px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 0 25px rgba(0,0,0,0.4);
+      transition: transform 0.3s ease;
+    }
+
+    .fruit-card:hover {
+      transform: scale(1.05);
+      background: rgba(255,255,255,0.1);
+    }
+
+    .fruit-card img {
+      width: 100%;
+      border-radius: 12px;
+      margin-bottom: 15px;
+    }
+
+    .fruit-card h3 {
+      color: #ffd700;
+      margin-bottom: 8px;
+    }
+
+    .fruit-card p {
+      color: #ccc;
+      font-size: 0.9em;
+    }
+
+    .back-button {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      background: rgba(255, 255, 255, 0.08);
+      color: white;
+      text-decoration: none;
+      padding: 12px 25px;
+      border-radius: 30px;
+      border: 1px solid rgba(255,255,255,0.2);
+      backdrop-filter: blur(10px);
+      transition: 0.3s;
+      font-size: 1em;
+    }
+
+    .back-button:hover {
+      background: rgba(255,255,255,0.15);
+      transform: scale(1.05);
+    }
+
+    footer {
+      margin-top: 60px;
+      color: #aaa;
+      font-size: 0.9em;
+    }
+  </style>
+</head>
+<body>
+
+  <a href="index.html" class="back-button">🏠 Retour à l'accueil</a>
+
+  <header>
+    <h1>🍍 Blox Fruits - Univers Draevorn</h1>
+    <p>Découvrez les fruits légendaires et leurs pouvoirs uniques inspirés de l’univers de Blox Fruits !</p>
+  </header>
+
+  <section class="fruit-section">
+    <div class="fruit-card">
+      <img src="https://static.wikia.nocookie.net/blox-fruits/images/0/05/DoughFruit.png" alt="Dough Fruit">
+      <h3>🍩 Dough Fruit</h3>
+      <p>Transforme votre corps en pâte résistante et malléable. Idéale pour les combats rapprochés et les combos puissants.</p>
+    </div>
+
+    <div class="fruit-card">
+      <img src="https://static.wikia.nocookie.net/blox-fruits/images/2/26/DragonFruit.png" alt="Dragon Fruit">
+      <h3>🐉 Dragon Fruit</h3>
+      <p>Donne le pouvoir ancestral du Dragon. Une transformation spectaculaire et destructrice !</p>
+    </div>
+
+    <div class="fruit-card">
+      <img src="https://static.wikia.nocookie.net/blox-fruits/images/e/e8/LightFruit.png" alt="Light Fruit">
+      <h3>☀️ Light Fruit</h3>
+      <p>La vitesse de la lumière à votre service ! Parfaite pour les déplacements rapides et attaques éclairs.</p>
+    </div>
+
+    <div class="fruit-card">
+      <img src="https://static.wikia.nocookie.net/blox-fruits/images/a/a2/DarkFruit.png" alt="Dark Fruit">
+      <h3>🌑 Dark Fruit</h3>
+      <p>Manipule les ténèbres pour aspirer et écraser tes ennemis. Un pouvoir redoutable de la nuit éternelle.</p>
+    </div>
+  </section>
+
+  <footer>
+    &copy; 2025 Draevorn - Tous droits réservés.
+  </footer>
+
+</body>
+</html>
