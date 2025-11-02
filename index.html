@@ -7,7 +7,11 @@
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap');
 
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
     body, html {
       font-family: 'Orbitron', sans-serif;
@@ -25,16 +29,21 @@
     body::before {
       content: "";
       position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
       background: rgba(0, 0, 0, 0.7);
       z-index: -1;
     }
 
+    /* === Écran d'intro === */
     #intro-screen {
       position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
       background: radial-gradient(circle at center, #000, #111);
       display: flex;
       align-items: center;
@@ -46,7 +55,7 @@
       text-align: center;
       z-index: 2000;
       animation: fadeOut 2s ease forwards;
-      animation-delay: 1s;
+      animation-delay: 3s;
     }
 
     #intro-screen h1 {
@@ -63,16 +72,51 @@
       to { opacity: 0; visibility: hidden; }
     }
 
-    header { padding: 50px 20px; text-align: center; }
-    header h1 { font-size: 3em; color: #ffd700; margin-bottom: 10px; }
-    header p { font-size: 1.2em; color: #ccc; }
+    header {
+      padding: 50px 20px;
+      text-align: center;
+    }
 
-    .section { padding: 60px 20px; text-align: center; }
-    .section h2 { font-size: 2.5em; margin-bottom: 20px; color: #00ffff; }
-    .section p { max-width: 800px; margin: auto; font-size: 1.1em; color: #ddd; }
+    header h1 {
+      font-size: 3em;
+      color: #ffd700;
+      margin-bottom: 10px;
+    }
 
-    .ip-container { margin-top: 40px; }
-    .ip-image { width: 350px; max-width: 90%; border-radius: 18px; margin-bottom: 15px; box-shadow: 0 0 20px rgba(255, 255, 255, 0.3); }
+    header p {
+      font-size: 1.2em;
+      color: #ccc;
+    }
+
+    .section {
+      padding: 60px 20px;
+      text-align: center;
+    }
+
+    .section h2 {
+      font-size: 2.5em;
+      margin-bottom: 20px;
+      color: #00ffff;
+    }
+
+    .section p {
+      max-width: 800px;
+      margin: auto;
+      font-size: 1.1em;
+      color: #ddd;
+    }
+
+    .ip-container {
+      margin-top: 40px;
+    }
+
+    .ip-image {
+      width: 350px;
+      max-width: 90%;
+      border-radius: 18px;
+      margin-bottom: 15px;
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+    }
 
     .copy-button, .discord-button {
       background: rgba(255, 255, 255, 0.08);
@@ -94,19 +138,60 @@
       box-shadow: 0 6px 35px rgba(0, 0, 0, 0.3);
     }
 
-    .server-status { margin-top: 15px; font-size: 1.2em; }
-    .server-online { color: #4CAF50; }
-    .server-offline { color: #F44336; }
+    .factions {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 40px;
+      margin-top: 30px;
+    }
 
-    .factions { display: flex; flex-wrap: wrap; justify-content: center; gap: 40px; margin-top: 30px; }
-    .faction-card { background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px); border-radius: 12px; padding: 20px; width: 300px; box-shadow: 0 0 20px rgba(255, 255, 255, 0.1); }
-    .faction-card h3 { display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 15px; font-size: 1.5em; color: #fff; }
-    .faction-content { display: flex; align-items: center; gap: 12px; }
-    .faction-content img { width: 60px; height: 60px; border-radius: 8px; box-shadow: 0 0 15px rgba(255, 255, 255, 0.25); flex-shrink: 0; object-fit: contain; }
+    .faction-card {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border-radius: 12px;
+      padding: 20px;
+      width: 300px;
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+    }
 
-    footer { background-color: rgba(0, 0, 0, 0.7); padding: 20px; text-align: center; color: #aaa; margin-top: 50px; }
+    .faction-card h3 {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 15px;
+      font-size: 1.5em;
+      color: #fff;
+    }
 
-    .staff-button, .cinema-button, .info-button {
+    .faction-content {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .faction-content img {
+      width: 60px;
+      height: 60px;
+      border-radius: 8px;
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.25);
+      flex-shrink: 0;
+      object-fit: contain;
+      margin-top: 0;
+    }
+
+    footer {
+      background-color: rgba(0, 0, 0, 0.7);
+      padding: 20px;
+      text-align: center;
+      color: #aaa;
+      margin-top: 50px;
+    }
+
+    /* === Boutons === */
+    .staff-button, .info-button, .cinema-button, .bloxfruits-button {
       position: fixed;
       top: 20px;
       padding: 12px 25px;
@@ -124,54 +209,45 @@
 
     .staff-button { left: 20px; }
     .cinema-button { left: 220px; }
+    .bloxfruits-button { left: 420px; }
     .info-button { right: 20px; }
 
-    .staff-button:hover, .cinema-button:hover, .info-button:hover {
+    .staff-button:hover,
+    .info-button:hover,
+    .cinema-button:hover,
+    .bloxfruits-button:hover {
       background: rgba(255, 255, 255, 0.15);
       transform: scale(1.05);
       box-shadow: 0 6px 35px rgba(0, 0, 0, 0.3);
     }
 
     @media (max-width: 768px) {
-      .cinema-button { left: 20px; top: 70px; }
-      header h1 { font-size: 2em; }
-      .section h2 { font-size: 2em; }
-      .factions { flex-direction: column; align-items: center; }
+      header h1 {
+        font-size: 2em;
+      }
+
+      .section h2 {
+        font-size: 2em;
+      }
+
+      .factions {
+        flex-direction: column;
+        align-items: center;
+      }
     }
-
-  /* === Bouton Blox Fruits === */
-.bloxfruits-button {
-  position: fixed;
-  top: 20px;
-  left: 420px; /* décale à droite du bouton cinéma */
-  padding: 12px 25px;
-  background: rgba(255, 255, 255, 0.08);
-  color: #fff;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 30px;
-  font-size: 1em;
-  text-decoration: none;
-  backdrop-filter: blur(10px);
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
-  transition: all 0.3s ease;
-  z-index: 1000;
-}
-
-.bloxfruits-button:hover {
-  background: rgba(255, 255, 255, 0.15);
-  transform: scale(1.05);
-  box-shadow: 0 6px 35px rgba(0, 0, 0, 0.3);
-} 
   </style>
 </head>
 <body>
 
+  <!-- 🔘 Écran d'intro -->
   <div id="intro-screen">
     <h1>✨ Site Officiel Draevorn ✨</h1>
   </div>
 
+  <!-- 🔘 Boutons -->
   <a href="staff.html" class="staff-button">👑 Membre Staff</a>
-  <a href="cinema.html" class="cinema-button">🎥 Planning Cinéma</a>
+  <a href="cinema.html" class="cinema-button">🎬 Planning Cinéma</a>
+  <a href="bloxfruits.html" class="bloxfruits-button">🍍 Blox Fruits</a>
   <a href="histoire.html" class="info-button">📖 Information Histoire</a>
 
   <header>
@@ -181,17 +257,13 @@
 
   <section class="section" id="presentation">
     <h2>Bienvenue sur Draevorn</h2>
-    <p>Un serveur Minecraft unique où la guerre entre la Lumière et les Ténèbres fait rage. Choisissez votre camp, développez vos pouvoirs et partez à la conquête du royaume !</p>
+    <p>Un serveur Minecraft unique en son genre où la guerre entre la Lumière et les Ténèbres fait rage. Choisissez votre camp, développez vos pouvoirs, bâtissez votre empire et partez à la conquête du royaume !</p>
 
     <div class="ip-container">
       <h3>IP du serveur</h3>
       <img src="image_2025-10-18_192004157.png" alt="IP Serveur" class="ip-image">
       <br>
-      <button class="copy-button" onclick="copyIP()">📋 Copier l'IP : draevorn.serveminecraft.net:25595</button>
-
-      <div class="server-status">
-        <p>Statut du serveur : <span id="status-text">Chargement...</span></p>
-      </div>
+      <button class="copy-button" onclick="copyIP()">📋 Copier l'IP : realm.servehttp.com:25593</button>
     </div>
 
     <br>
@@ -207,14 +279,14 @@
         <h3>☀️ Faction Lumière</h3>
         <div class="faction-content">
           <img src="ChatGPT_Image_20_oct._2025_22_12_17_upscayl_4x_digital-art-4x.png" alt="Symbole Lumière">
-          <p>Les défenseurs de la justice. Accédez à des pouvoirs de lumière divine et d’invocation céleste.</p>
+          <p>Les défenseurs de l’ordre, de la paix et de la justice. Accédez à des pouvoirs de soin, de lumière divine et d’invocation céleste.</p>
         </div>
       </div>
       <div class="faction-card">
         <h3>🌑 Faction Ténèbres</h3>
         <div class="faction-content">
           <img src="ChatGPT_Image_20_oct._2025_22_17_25_upscayl_4x_digital-art-4x.png" alt="Symbole Ténèbres">
-          <p>Les maîtres du chaos et des ombres. Maîtrisez la magie noire et les illusions destructrices.</p>
+          <p>Les maîtres de l’ombre, de la ruse et du chaos. Maîtrisez la magie noire, les illusions et la destruction pure.</p>
         </div>
       </div>
     </div>
@@ -224,34 +296,29 @@
     &copy; 2025 Draevorn - Tous droits réservés.
   </footer>
 
-  <!-- Audios -->
+  <!-- 🔊 Son magique -->
   <audio id="magicSound" src="Magic-poof-sound-effect.mp3" preload="auto"></audio>
-  <audio id="cinemaClickSound" src="button-click-289742.mp3" preload="auto"></audio>
 
   <script>
+    // Copier IP
     function copyIP() {
-      const ip = "draevorn.serveminecraft.net:25595";
+      const ip = "realm.servehttp.com:25593";
       navigator.clipboard.writeText(ip).then(() => {
         alert("IP copiée dans le presse-papiers !");
       });
     }
 
+    // Sons sur les boutons
     document.addEventListener("DOMContentLoaded", function () {
       const magicSound = document.getElementById("magicSound");
-      const cinemaClickSound = document.getElementById("cinemaClickSound");
+
       const discordButton = document.querySelector(".discord-button");
       const staffButton = document.querySelector(".staff-button");
       const infoButton = document.querySelector(".info-button");
       const cinemaButton = document.querySelector(".cinema-button");
+      const bloxButton = document.querySelector(".bloxfruits-button");
 
-      if (cinemaButton) {
-        cinemaButton.addEventListener("click", function () {
-          cinemaClickSound.currentTime = 0;
-          cinemaClickSound.play();
-        });
-      }
-
-      [discordButton, staffButton, infoButton].forEach(btn => {
+      [discordButton, staffButton, infoButton, cinemaButton, bloxButton].forEach(btn => {
         if (btn) {
           btn.addEventListener("click", () => {
             magicSound.currentTime = 0;
@@ -259,32 +326,7 @@
           });
         }
       });
-
-      // Vérification du statut serveur
-      checkServerStatus();
     });
-
-    function checkServerStatus() {
-      const statusText = document.getElementById('status-text');
-      const serverIP = "draevorn.serveminecraft.net";
-      const serverPort = 25595;
-
-      fetch(`https://api.mcsrvstat.us/2/${serverIP}:${serverPort}`)
-        .then(response => response.json())
-        .then(data => {
-          if (data.online) {
-            statusText.textContent = "En ligne ✅";
-            statusText.className = "server-online";
-          } else {
-            statusText.textContent = "Hors ligne ❌";
-            statusText.className = "server-offline";
-          }
-        })
-        .catch(() => {
-          statusText.textContent = "Hors ligne ❌";
-          statusText.className = "server-offline";
-        });
-    }
   </script>
 </body>
 </html>
