@@ -304,11 +304,30 @@
   <script>
     // Copier IP
     function copyIP() {
-      const ip = "realm.servehttp.com:25593";
+      const ip = "draevorn.serveminecraft.net";
       navigator.clipboard.writeText(ip).then(() => {
         alert("IP copiée dans le presse-papiers !");
       });
     }
+<p>Statut du serveur : <span id="mc-status">Chargement...</span></p>
+
+<script>
+    const ip = "draevorn.serveminecraft.net";
+    const port = "25595";
+
+    fetch(`https://api.mcsrvstat.us/2/${ip}:${port}`)
+        .then(response => response.json())
+        .then(data => {
+            if (data.online) {
+                document.getElementById("mc-status").innerHTML = `🟢 En ligne (${data.players.online}/${data.players.max} joueurs)`;
+            } else {
+                document.getElementById("mc-status").innerHTML = "🔴 Hors ligne";
+            }
+        })
+        .catch(error => {
+            document.getElementById("mc-status").innerHTML = "⚠️ Erreur : impossible de récupérer le statut";
+        });
+</script>
 
     // Sons sur les boutons
     document.addEventListener("DOMContentLoaded", function () {
