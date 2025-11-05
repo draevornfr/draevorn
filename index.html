@@ -12,7 +12,6 @@
     body { background: url("ezgif-429320cb4399fc.gif") no-repeat center center fixed; background-size: cover; position: relative; }
     body::before { content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.7); z-index: -1; }
 
-    /* intro */
     #intro-screen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle, #000, #111); display: flex; align-items: center; justify-content: center; flex-direction: column; color: #ffd700; font-size: 2.8em; z-index: 2000; animation: fadeOut 2s forwards; animation-delay: 1s; }
     #intro-screen h1 { animation: glow 2s infinite alternate; text-shadow: 0 0 20px #ffd700; }
     @keyframes glow { from { text-shadow: 0 0 15px #ffd700; } to { text-shadow: 0 0 40px #fff6a3; } }
@@ -29,20 +28,51 @@
     .copy-button, .discord-button { background: rgba(255,255,255,0.08); color: #fff; padding: 14px 30px; margin-top: 20px; border: 1px solid rgba(255,255,255,0.2); border-radius: 30px; cursor: pointer; transition: .3s; }
     .copy-button:hover, .discord-button:hover { background: rgba(255,255,255,0.2); transform: scale(1.05); }
 
-    .server-status {
-      margin-top: 10px;
-      font-size: 1.3em;
-      font-weight: bold;
-    }
-
+    .server-status { margin-top: 10px; font-size: 1.3em; font-weight: bold; }
     .server-online { color: #00ff9d; }
     .server-offline { color: #ff6b6b; }
 
+    /* ✅ Boutons remis */
+    .staff-button, .info-button, .cinema-button, .bloxfruits-button {
+      position: fixed;
+      top: 20px;
+      padding: 12px 25px;
+      background: rgba(255, 255, 255, 0.08);
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 30px;
+      font-size: 1em;
+      text-decoration: none;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+      transition: .3s;
+      z-index: 1000;
+    }
+
+    .staff-button { left: 20px; }
+    .cinema-button { left: 220px; }
+    .bloxfruits-button { left: 420px; }
+    .info-button { right: 20px; }
+
+    .staff-button:hover,
+    .info-button:hover,
+    .cinema-button:hover,
+    .bloxfruits-button:hover {
+      background: rgba(255, 255, 255, 0.15);
+      transform: scale(1.05);
+      box-shadow: 0 6px 35px rgba(0, 0, 0, 0.3);
+    }
   </style>
 </head>
 <body>
 
   <div id="intro-screen"><h1>✨ Site Officiel Draevorn ✨</h1></div>
+
+  <!-- ✅ Boutons restaurés -->
+  <a href="staff.html" class="staff-button">👑 Membre Staff</a>
+  <a href="cinema.html" class="cinema-button">🎬 Planning Cinéma</a>
+  <a href="bloxfruits.html" class="bloxfruits-button">🍍 Blox Fruits</a>
+  <a href="histoire.html" class="info-button">📖 Information Histoire</a>
 
   <header>
     <h1>✨ Draevorn</h1>
@@ -56,7 +86,7 @@
       <h3>IP du serveur</h3>
       <img src="image_2025-10-18_192004157.png" class="ip-image">
 
-      <!-- ✅ STATUT DU SERVEUR ICI -->
+      <!-- ✅ Statut du serveur -->
       <p class="server-status" id="mc-status">Chargement...</p>
 
       <button class="copy-button" onclick="copyIP()">📋 Copier l'IP : draevorn.serveminecraft.net:25595</button>
@@ -68,15 +98,12 @@
 
   <footer>&copy; 2025 Draevorn - Tous droits réservés.</footer>
 
-  <audio id="magicSound" src="Magic-poof-sound-effect.mp3" preload="auto"></audio>
-
 <script>
   function copyIP() {
     navigator.clipboard.writeText("draevorn.serveminecraft.net:25595");
     alert("IP copiée !");
   }
 
-  // ✅ Statut Serveur Minecraft
   const ip = "draevorn.serveminecraft.net";
   const port = "25595";
 
