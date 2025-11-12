@@ -1,31 +1,29 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <script>
-  (function(){
-    const s = sessionStorage.getItem('draevorn_logged');
-    if (!s) {
-      // Pas de session -> retour au login
-      window.location.replace('login.html');
-      return;
-    }
-    const data = JSON.parse(s);
-    const maxAge = 24*60*60*1000; // 24h en ms
-    if (!data.user || (Date.now() - (data.ts || 0) > maxAge)) {
-      sessionStorage.removeItem('draevorn_logged');
-      window.location.replace('login.html');
-      return;
-    }
-    // session ok
-    console.log('Utilisateur connecté :', data.user);
-  })();
-</script>
-
-
-
   <meta charset="UTF-8">
   <title>Draevorn - Factions Lumière & Ténèbres</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- ✅ Vérification de session -->
+  <script>
+    (function(){
+      const s = sessionStorage.getItem('draevorn_logged');
+      if (!s) {
+        window.location.replace('login.html');
+        return;
+      }
+      const data = JSON.parse(s);
+      const maxAge = 24*60*60*1000; // 24h en ms
+      if (!data.user || (Date.now() - (data.ts || 0) > maxAge)) {
+        sessionStorage.removeItem('draevorn_logged');
+        window.location.replace('login.html');
+        return;
+      }
+      console.log('Utilisateur connecté :', data.user);
+    })();
+  </script>
+
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap');
 
@@ -47,14 +45,14 @@
 
     .ip-container { margin-top: 40px; }
     .ip-image { width: 350px; max-width: 90%; border-radius: 18px; margin-bottom: 15px; box-shadow: 0 0 20px rgba(255,255,255,0.3); }
-    .copy-button, .discord-button { background: rgba(255,255,255,0.08); color: #fff; padding: 14px 30px; margin-top: 20px; border: 1px solid rgba(255,255,255,0.2); border-radius: 30px; cursor: pointer; transition: .3s; }
-    .copy-button:hover, .discord-button:hover { background: rgba(255,255,255,0.2); transform: scale(1.05); }
+    .copy-button, .discord-button, .logout-button { background: rgba(255,255,255,0.08); color: #fff; padding: 14px 30px; margin-top: 20px; border: 1px solid rgba(255,255,255,0.2); border-radius: 30px; cursor: pointer; transition: .3s; }
+    .copy-button:hover, .discord-button:hover, .logout-button:hover { background: rgba(255,255,255,0.2); transform: scale(1.05); }
 
     .server-status { margin-top: 10px; font-size: 1.3em; font-weight: bold; }
     .server-online { color: #00ff9d; }
     .server-offline { color: #ff6b6b; }
 
-    /* ✅ Boutons remis */
+    /* ✅ Boutons fixes */
     .staff-button, .info-button, .cinema-button, .bloxfruits-button {
       position: fixed;
       top: 20px;
@@ -84,13 +82,14 @@
       transform: scale(1.05);
       box-shadow: 0 6px 35px rgba(0, 0, 0, 0.3);
     }
+
   </style>
 </head>
 <body>
 
   <div id="intro-screen"><h1>✨ Site Officiel Draevorn ✨</h1></div>
 
-  <!-- ✅ Boutons restaurés -->
+  <!-- ✅ Boutons fixes -->
   <a href="staff.html" class="staff-button">👑 Membre Staff</a>
   <a href="cinema.html" class="cinema-button">🎬 Planning Cinéma</a>
   <a href="bloxfruits.html" class="bloxfruits-button">🍍 Blox Fruits</a>
@@ -108,21 +107,25 @@
       <h3>IP du serveur</h3>
       <img src="image_2025-10-18_192004157.png" class="ip-image">
 
-      <!-- ✅ Statut du serveur -->
       <p class="server-status" id="mc-status">Chargement...</p>
 
       <button class="copy-button" onclick="copyIP()">📋 Copier l'IP : draevorn.serveminecraft.net:25595</button>
+      <button class="logout-button" onclick="logout()">🚪 Déconnexion</button>
     </div>
 
     <br>
     <a href="https://discord.gg/C2Y4fAEBPh" target="_blank"><button class="discord-button">💬 Rejoindre le Discord</button></a>
   </section>
 
-
 <script>
   function copyIP() {
     navigator.clipboard.writeText("draevorn.serveminecraft.net:25595");
     alert("IP copiée !");
+  }
+
+  function logout() {
+    sessionStorage.removeItem('draevorn_logged');
+    window.location.replace('login.html');
   }
 
   const ip = "draevorn.serveminecraft.net";
