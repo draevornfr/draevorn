@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Connexion - Draevorn</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap');
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Orbitron', sans-serif;
+      height: 100vh;
+      background: radial-gradient(circle at top left, #0a0a20, #050510 80%);
+      background-image: url("ezgif-429320cb4399fc.gif");
+      background-size: cover;
+      background-position: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      overflow: hidden;
+    }
+
+    .login-card {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(15px);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 20px;
+      width: 350px;
+      padding: 40px 30px;
+      text-align: center;
+      box-shadow: 0 0 25px rgba(0,0,0,0.4);
+      animation: fadeIn 1.5s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    h1 {
+      font-size: 1.8em;
+      color: #b19fff;
+      margin-bottom: 10px;
+    }
+
+    p {
+      font-size: 0.9em;
+      color: #ccc;
+      margin-bottom: 25px;
+    }
+
+    .input-group {
+      text-align: left;
+      margin-bottom: 20px;
+    }
+
+    label {
+      font-size: 0.85em;
+      color: #aaa;
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px 12px;
+      border-radius: 10px;
+      border: 1px solid rgba(255,255,255,0.2);
+      background: rgba(0,0,0,0.4);
+      color: #fff;
+      outline: none;
+      transition: 0.3s;
+    }
+
+    input:focus {
+      border-color: #8a6bff;
+      box-shadow: 0 0 10px rgba(138,107,255,0.4);
+    }
+
+    .login-btn {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 10px;
+      background: linear-gradient(90deg, #6a5aff, #8a6bff);
+      color: #fff;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 1em;
+      transition: 0.3s;
+    }
+
+    .login-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 15px rgba(138,107,255,0.6);
+    }
+
+    .error {
+      color: #ff7777;
+      margin-top: 15px;
+      font-size: 0.9em;
+      display: none;
+    }
+
+    footer {
+      margin-top: 25px;
+      font-size: 0.8em;
+      color: #777;
+    }
+
+  </style>
+</head>
+<body>
+
+  <div class="login-card">
+    <h1>Connexion</h1>
+    <p>Authentifiez-vous pour accéder à Draevorn</p>
+
+    <div class="input-group">
+      <label for="username">Nom d’utilisateur</label>
+      <input type="text" id="username" placeholder="Entrer le nom d’utilisateur">
+    </div>
+
+    <div class="input-group">
+      <label for="password">Mot de passe</label>
+      <input type="password" id="password" placeholder="Entrer le mot de passe">
+    </div>
+
+    <button class="login-btn" onclick="login()">Se connecter</button>
+    <p class="error" id="error-msg">❌ Identifiants incorrects</p>
+
+    <footer>v1.0 - Draevorn</footer>
+  </div>
+
+  <script>
+    function login() {
+      const username = document.getElementById("username").value;
+      const password = document.getElementById("password").value;
+      const errorMsg = document.getElementById("error-msg");
+
+      // Identifiants valides
+      const validUser = "admin";
+      const validPass = "1234";
+
+      if (username === validUser && password === validPass) {
+        document.body.style.transition = "opacity 1s ease";
+        document.body.style.opacity = "0";
+        setTimeout(() => {
+          window.location.href = "index.html";
+        }, 1000);
+      } else {
+        errorMsg.style.display = "block";
+        errorMsg.style.animation = "shake 0.3s";
+      }
+    }
+
+    // Effet de tremblement en cas d’erreur
+    const style = document.createElement('style');
+    style.innerHTML = `
+      @keyframes shake {
+        0% { transform: translateX(0); }
+        25% { transform: translateX(-5px); }
+        50% { transform: translateX(5px); }
+        75% { transform: translateX(-5px); }
+        100% { transform: translateX(0); }
+      }
+    `;
+    document.head.appendChild(style);
+  </script>
+
+</body>
+</html>
