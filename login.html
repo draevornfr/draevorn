@@ -88,6 +88,7 @@
 </div>
 
 <script>
+  // Changement d’onglet
   function showTab(tab){
     document.getElementById('login-form').style.display = tab==='login'?'block':'none';
     document.getElementById('signup-form').style.display = tab==='signup'?'block':'none';
@@ -95,6 +96,7 @@
     document.getElementById('signup-tab').classList.toggle('active', tab==='signup');
   }
 
+  // Création de compte
   function signup(){
     const username = document.getElementById('signup-username').value.trim();
     const password = document.getElementById('signup-password').value.trim();
@@ -102,18 +104,26 @@
     const success = document.getElementById('signup-success');
     error.style.display='none'; success.style.display='none';
 
-    if(!username || !password){ error.textContent='❌ Remplissez tous les champs'; error.style.display='block'; return; }
+    if(!username || !password){ 
+      error.textContent='❌ Remplissez tous les champs'; error.style.display='block'; 
+      return; 
+    }
 
     const users = JSON.parse(localStorage.getItem('draevorn_users')||'{}');
-    if(users[username]){ error.textContent='❌ Ce pseudo existe déjà'; error.style.display='block'; return; }
+    if(users[username]){
+      error.textContent='❌ Ce pseudo existe déjà'; 
+      error.style.display='block'; 
+      return; 
+    }
 
-    users[username] = password; // simple stockage, non sécurisé pour vrai site
+    users[username] = password; // simple stockage (non sécurisé pour un vrai site)
     localStorage.setItem('draevorn_users', JSON.stringify(users));
     success.style.display='block';
     document.getElementById('signup-username').value='';
     document.getElementById('signup-password').value='';
   }
 
+  // Connexion
   function login(){
     const username = document.getElementById('login-username').value.trim();
     const password = document.getElementById('login-password').value.trim();
@@ -122,13 +132,29 @@
 
     const users = JSON.parse(localStorage.getItem('draevorn_users')||'{}');
     if(users[username] && users[username] === password){
-      sessionStorage.setItem('draevorn_logged', JSON.stringify({user:username, ts:Date.now()}));
+      // ✅ Création session 24h
+      const now = Date.now();
+      sessionStorage.setItem('draevorn_logged', JSON.stringify({user:username, ts: now}));
       document.body.style.transition="opacity 0.8s"; document.body.style.opacity=0;
       setTimeout(()=>window.location.href='index.html',800);
     } else {
       error.style.display='block';
     }
   }
+
+  // Redirection si déjà connecté
+  window.onload = function() {
+    const s = sessionStorage.getItem('draevorn_logged');
+    if(s){
+      const data = JSON.parse(s);
+      const maxAge = 24*60*60*1000;
+      if(data.user && (Date.now() - (data.ts||0)) <= maxAge){
+        window.location.href = 'index.html';
+      } else {
+        sessionStorage.removeItem('draevorn_logged');
+      }
+    }
+  };
 </script>
 
 </body>
