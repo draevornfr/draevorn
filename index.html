@@ -1,29 +1,29 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
+  <script>
+  (function(){
+    const s = sessionStorage.getItem('draevorn_logged');
+    if (!s) {
+      // Pas de session -> retour au login
+      window.location.replace('login.html');
+      return;
+    }
+    const data = JSON.parse(s);
+    const maxAge = 24*60*60*1000; // 24h en ms
+    if (!data.user || (Date.now() - (data.ts || 0) > maxAge)) {
+      sessionStorage.removeItem('draevorn_logged');
+      window.location.replace('login.html');
+      return;
+    }
+    // session ok
+    console.log('Utilisateur connecté :', data.user);
+  })();
+</script>
+
   <meta charset="UTF-8">
   <title>Draevorn - Factions Lumière & Ténèbres</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <!-- ✅ Vérification de session -->
-  <script>
-    (function(){
-      const s = sessionStorage.getItem('draevorn_logged');
-      if (!s) {
-        window.location.replace('login.html');
-        return;
-      }
-      const data = JSON.parse(s);
-      const maxAge = 24*60*60*1000; // 24h en ms
-      if (!data.user || (Date.now() - (data.ts || 0) > maxAge)) {
-        sessionStorage.removeItem('draevorn_logged');
-        window.location.replace('login.html');
-        return;
-      }
-      console.log('Utilisateur connecté :', data.user);
-    })();
-  </script>
-
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap');
 
@@ -45,14 +45,14 @@
 
     .ip-container { margin-top: 40px; }
     .ip-image { width: 350px; max-width: 90%; border-radius: 18px; margin-bottom: 15px; box-shadow: 0 0 20px rgba(255,255,255,0.3); }
-    .copy-button, .discord-button, .logout-button { background: rgba(255,255,255,0.08); color: #fff; padding: 14px 30px; margin-top: 20px; border: 1px solid rgba(255,255,255,0.2); border-radius: 30px; cursor: pointer; transition: .3s; }
-    .copy-button:hover, .discord-button:hover, .logout-button:hover { background: rgba(255,255,255,0.2); transform: scale(1.05); }
+    .copy-button, .discord-button { background: rgba(255,255,255,0.08); color: #fff; padding: 14px 30px; margin-top: 20px; border: 1px solid rgba(255,255,255,0.2); border-radius: 30px; cursor: pointer; transition: .3s; }
+    .copy-button:hover, .discord-button:hover { background: rgba(255,255,255,0.2); transform: scale(1.05); }
 
     .server-status { margin-top: 10px; font-size: 1.3em; font-weight: bold; }
     .server-online { color: #00ff9d; }
     .server-offline { color: #ff6b6b; }
 
-    /* ✅ Boutons fixes */
+    /* ✅ Boutons restaurés */
     .staff-button, .info-button, .cinema-button, .bloxfruits-button {
       position: fixed;
       top: 20px;
@@ -83,17 +83,98 @@
       box-shadow: 0 6px 35px rgba(0, 0, 0, 0.3);
     }
 
+    /* Hamburger Menu */
+    .hamburger-menu {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      z-index: 2100;
+      font-family: 'Orbitron', sans-serif;
+    }
+
+    .hamburger-icon {
+      width: 35px;
+      height: 25px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      cursor: pointer;
+    }
+
+    .hamburger-icon span {
+      display: block;
+      height: 4px;
+      width: 100%;
+      background: #ffd700;
+      border-radius: 2px;
+      transition: 0.3s;
+    }
+
+    /* Menu Links */
+    .menu-links {
+      position: fixed;
+      top: 0;
+      left: -220px;
+      width: 200px;
+      height: 100%;
+      background: rgba(0,0,0,0.85);
+      backdrop-filter: blur(10px);
+      display: flex;
+      flex-direction: column;
+      padding-top: 80px;
+      gap: 25px;
+      transition: 0.4s;
+      z-index: 2000;
+    }
+
+    .menu-links a {
+      color: #fff;
+      text-decoration: none;
+      font-size: 1.1em;
+      padding: 10px 20px;
+      transition: 0.3s;
+      border-radius: 10px;
+    }
+
+    .menu-links a:hover {
+      background: rgba(255,255,255,0.1);
+      transform: scale(1.05);
+    }
+
+    /* Hamburger animation when active */
+    .hamburger-icon.active span:nth-child(1) {
+      transform: rotate(45deg) translate(6px, 6px);
+    }
+    .hamburger-icon.active span:nth-child(2) {
+      opacity: 0;
+    }
+    .hamburger-icon.active span:nth-child(3) {
+      transform: rotate(-45deg) translate(6px, -6px);
+    }
+
+    /* Menu open */
+    .menu-links.open {
+      left: 0;
+    }
   </style>
 </head>
 <body>
 
   <div id="intro-screen"><h1>✨ Site Officiel Draevorn ✨</h1></div>
 
-  <!-- ✅ Boutons fixes -->
-  <a href="staff.html" class="staff-button">👑 Membre Staff</a>
-  <a href="cinema.html" class="cinema-button">🎬 Planning Cinéma</a>
-  <a href="bloxfruits.html" class="bloxfruits-button">🍍 Blox Fruits</a>
-  <a href="histoire.html" class="info-button">📖 Information Histoire</a>
+  <!-- Hamburger Menu -->
+  <div class="hamburger-menu">
+    <div class="hamburger-icon" id="hamburger-icon">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+    <div class="menu-links" id="menu-links">
+      <a href="staff.html">👑 Membre Staff</a>
+      <a href="cinema.html">🎬 Planning Cinéma</a>
+      <a href="bloxfruits.html">🍍 Blox Fruits</a>
+    </div>
+  </div>
 
   <header>
     <h1>✨ Draevorn</h1>
@@ -110,7 +191,6 @@
       <p class="server-status" id="mc-status">Chargement...</p>
 
       <button class="copy-button" onclick="copyIP()">📋 Copier l'IP : draevorn.serveminecraft.net:25595</button>
-      <button class="logout-button" onclick="logout()">🚪 Déconnexion</button>
     </div>
 
     <br>
@@ -121,11 +201,6 @@
   function copyIP() {
     navigator.clipboard.writeText("draevorn.serveminecraft.net:25595");
     alert("IP copiée !");
-  }
-
-  function logout() {
-    sessionStorage.removeItem('draevorn_logged');
-    window.location.replace('login.html');
   }
 
   const ip = "draevorn.serveminecraft.net";
@@ -144,6 +219,15 @@
     .catch(() => {
       document.getElementById("mc-status").innerHTML = `⚠️ Impossible de vérifier`;
     });
+
+  // Hamburger Menu
+  const hamburger = document.getElementById('hamburger-icon');
+  const menu = document.getElementById('menu-links');
+
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('active');
+    menu.classList.toggle('open');
+  });
 </script>
 
 </body>
