@@ -315,6 +315,7 @@
       window.location.replace('login.html');
     }
   </script>
+
     <!-- 🎅 Neige de Pères Noël -->
   <script>
     const santaContainer = document.createElement('div');
@@ -344,8 +345,8 @@
       const drift = (Math.random() - 0.5) * 100; // dérive horizontale
 
       santa.animate([
-        { transform: `translate(0, 0)` },
-        { transform: `translate(${drift}px, 100vh)` }
+        { transform: `translate(0, 0) rotate(0deg)` },
+        { transform: `translate(${drift}px, 100vh) rotate(${Math.random() * 360}deg)` }
       ], {
         duration: fallDuration * 1000,
         easing: 'linear'
@@ -358,6 +359,8 @@
     // crée régulièrement des 🎅
     setInterval(createSanta, 800); // toutes les 0.8s
   </script>
+</body>
+</html>
 
 </body>
 </html>
