@@ -1,6 +1,34 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
+  <script>
+  // Vérification rapide : si pas de session valide -> renvoyer vers login
+  (function() {
+    try {
+      const s = sessionStorage.getItem('draevorn_logged');
+      if (!s) {
+        // pas de session => redirige vers login
+        window.location.replace('login.html');
+        return;
+      }
+      const data = JSON.parse(s);
+      // Optionnel : vérifier un token simple / expiration (ici 24h)
+      const maxAge = 24 * 60 * 60 * 1000; // 24h en ms
+      if (!data.token || (Date.now() - (data.ts || 0) > maxAge)) {
+        sessionStorage.removeItem('draevorn_logged');
+        window.location.replace('login.html');
+        return;
+      }
+      // Si tout va bien, continuer l'affichage. Tu peux aussi afficher le user :
+      // document.getElementById('welcome').textContent = `Bienvenue ${data.user}`;
+    } catch (e) {
+      // en cas d'erreur -> redirige aussi
+      sessionStorage.removeItem('draevorn_logged');
+      window.location.replace('login.html');
+    }
+  })();
+</script>
+
   <meta charset="UTF-8">
   <title>Draevorn - Factions Lumière & Ténèbres</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
