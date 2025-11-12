@@ -315,5 +315,49 @@
       window.location.replace('login.html');
     }
   </script>
+    <!-- 🎅 Neige de Pères Noël -->
+  <script>
+    const santaContainer = document.createElement('div');
+    santaContainer.style.position = 'fixed';
+    santaContainer.style.top = '0';
+    santaContainer.style.left = '0';
+    santaContainer.style.width = '100%';
+    santaContainer.style.height = '100%';
+    santaContainer.style.pointerEvents = 'none'; // ne gêne pas les clics
+    santaContainer.style.overflow = 'hidden';
+    santaContainer.style.zIndex = '5'; // derrière le contenu
+    document.body.appendChild(santaContainer);
+
+    function createSanta() {
+      const santa = document.createElement('div');
+      santa.textContent = '🎅';
+      santa.style.position = 'absolute';
+      santa.style.left = Math.random() * 100 + 'vw';
+      santa.style.top = '-40px';
+      santa.style.fontSize = (Math.random() * 18 + 18) + 'px'; // taille aléatoire
+      santa.style.opacity = Math.random() * 0.8 + 0.2;
+      santa.style.transition = 'transform 0.2s ease-out';
+      santaContainer.appendChild(santa);
+
+      // vitesse & direction
+      const fallDuration = Math.random() * 6 + 6; // 6 à 12s
+      const drift = (Math.random() - 0.5) * 100; // dérive horizontale
+
+      santa.animate([
+        { transform: `translate(0, 0)` },
+        { transform: `translate(${drift}px, 100vh)` }
+      ], {
+        duration: fallDuration * 1000,
+        easing: 'linear'
+      });
+
+      // suppression à la fin
+      setTimeout(() => santa.remove(), fallDuration * 1000);
+    }
+
+    // crée régulièrement des 🎅
+    setInterval(createSanta, 800); // toutes les 0.8s
+  </script>
+
 </body>
 </html>
