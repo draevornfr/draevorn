@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Boutique — Draevorn</title>
+  <style>
+    :root{
+      --bg1:#000000;
+      --bg2:#001733; /* bleu marine foncé */
+      --card:#0b1220;
+      --accent:#9be7ff;
+      --glow:#ffffff;
+    }
+    html,body{height:100%;margin:0;font-family:Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial}
+    body{
+      background: linear-gradient(180deg,var(--bg1) 0%, var(--bg2) 100%);
+      color:#dbe9ff;
+      -webkit-font-smoothing:antialiased;
+      display:flex;flex-direction:column;
+      min-height:100vh;
+    }
+    header{
+      padding:28px 36px;display:flex;align-items:center;justify-content:space-between;gap:20px
+    }
+    .brand{
+      font-weight:800;font-size:28px;letter-spacing:2px;color:var(--glow);
+      text-shadow:0 0 12px rgba(255,255,255,0.65), 0 0 28px rgba(0,170,255,0.08);
+    }
+    .brand small{display:block;font-size:11px;opacity:.7;font-weight:600;letter-spacing:1px}
+    main{flex:1;padding:0 36px 120px}
+
+    /* zone boutique */
+    .controls{display:flex;gap:12px;align-items:center;margin-bottom:18px}
+    .search{flex:1}
+    input[type=search]{width:100%;padding:10px 12px;border-radius:10px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:inherit}
+
+    .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px}
+    .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border-radius:14px;padding:14px;border:1px solid rgba(255,255,255,0.03);box-shadow:0 6px 18px rgba(0,0,0,0.6);display:flex;flex-direction:column;gap:10px}
+    .thumb{height:140px;border-radius:10px;background:linear-gradient(135deg,#022 0%, #023 100%);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.12);font-size:28px}
+    .title{font-weight:700}
+    .price{margin-top:auto;font-weight:800}
+    .price .coin{font-size:13px;margin-left:6px;color:var(--accent);font-weight:700}
+    .btn{background:transparent;border:1px solid rgba(255,255,255,0.06);padding:8px 12px;border-radius:10px;cursor:pointer}
+
+    /* marquee/bottom ticker */
+    .ticker-wrap{position:fixed;left:0;right:0;bottom:0;height:64px;display:flex;align-items:center;background:linear-gradient(180deg, rgba(0,0,0,0.35), rgba(0,0,0,0.6));backdrop-filter:blur(6px);padding:8px 16px;border-top:1px solid rgba(255,255,255,0.03)}
+    .ticker{
+      white-space:nowrap;display:inline-block;padding-left:100%;
+      animation:scroll 28s linear infinite;
+      font-weight:700
+    }
+    .ticker-item{display:inline-block;margin-right:40px;padding:6px 10px;border-radius:8px;background:rgba(255,255,255,0.02)}
+    @keyframes scroll{
+      0%{transform:translateX(0)}
+      100%{transform:translateX(-100%)}
+    }
+
+    /* responsive */
+    @media (max-width:560px){.brand{font-size:20px}.thumb{height:110px}}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="brand">DRAEVORN <small>Shop officiel</small></div>
+    <nav>
+      <a href="index.html" style="color:inherit;text-decoration:none;border:1px solid rgba(255,255,255,0.04);padding:8px 12px;border-radius:10px">Retour</a>
+    </nav>
+  </header>
+
+  <main>
+    <div class="controls">
+      <div class="search"><input id="search" type="search" placeholder="Rechercher un objet... (ex: épée, monture)" /></div>
+      <div><button class="btn" id="sortPrice">Trier par prix</button></div>
+    </div>
+
+    <section class="grid" id="productGrid" aria-live="polite">
+      <!-- les produits sont générés automatiquement par JS -->
+    </section>
+  </main>
+
+  <div class="ticker-wrap" aria-hidden="false">
+    <div class="ticker" id="ticker">
+      <!-- items remplis automatiquement -->
+    </div>
+  </div>
+
+  <script>
+    // données produits — modifiable
+    const products = [
+      {id:1,name:'Épée d\'argent',price:1500,desc:'+12 dégâts physiques'},
+      {id:2,name:'Cape des abysses',price:950,desc:'+8 en discrétion'},
+      {id:3,name:'Monture : Griffon',price:12000,desc:'Vol et +20 vitesse'},
+      {id:4,name:'Potion de vie (x10)',price:300,desc:'Restaure 500 PV'},
+      {id:5,name:'Skin Draevorn',price:5000,desc:'Apparence exclusive'},
+      {id:6,name:'Parchemin téléportation',price:220,desc:'Utilisation instantanée'}
+    ];
+
+    const productGrid = document.getElementById('productGrid');
+    const ticker = document.getElementById('ticker');
+
+    function formatNumber(n){return n.toLocaleString('fr-FR')}
+
+    function createCard(p){
+      const el = document.createElement('article');
+      el.className='card';
+      el.innerHTML = `
+        <div class="thumb">${p.name.split(' ').slice(0,2).join(' ')}</div>
+        <div class="title">${p.name}</div>
+        <div class="desc">${p.desc}</div>
+        <div class="price">${formatNumber(p.price)} <span class="coin">wowcoins</span></div>
+        <div style="display:flex;gap:8px;margin-top:8px"><button class="btn" onclick="addToCart(${p.id})">Ajouter</button><button class="btn" onclick="buyNow(${p.id})">Acheter</button></div>
+      `;
+      return el;
+    }
+
+    // génération automatique
+    function renderProducts(list){
+      productGrid.innerHTML='';
+      list.forEach(p=>productGrid.appendChild(createCard(p)));
+    }
+
+    // ticker automatique
+    function renderTicker(list){
+      // on génère une longue ligne répétée pour l'effet défilement continu
+      const parts = list.map(p=>`<span class="ticker-item">${p.name} — ${formatNumber(p.price)} wowcoins</span>`).join('');
+      ticker.innerHTML = parts + parts + parts; // tripler pour éviter les trous
+    }
+
+    // actions simples (exemples automatiques)
+    function addToCart(id){
+      const p = products.find(x=>x.id===id);
+      alert(`${p.name} ajouté au panier (simulé) — ${p.price} wowcoins`);
+    }
+    function buyNow(id){
+      const p = products.find(x=>x.id===id);
+      alert(`Achat simulé : ${p.name} — ${p.price} wowcoins`);
+    }
+
+    // recherches et tris
+    document.getElementById('search').addEventListener('input', e=>{
+      const q = e.target.value.trim().toLowerCase();
+      const filtered = products.filter(p=>p.name.toLowerCase().includes(q) || p.desc.toLowerCase().includes(q));
+      renderProducts(filtered);
+    });
+
+    document.getElementById('sortPrice').addEventListener('click', ()=>{
+      const sorted = [...products].sort((a,b)=>a.price-b.price);
+      renderProducts(sorted);
+    });
+
+    // initialisation automatique
+    renderProducts(products);
+    renderTicker(products);
+
+    // petite amélioration : on ralentit le ticker si la souris est dessus
+    document.querySelector('.ticker-wrap').addEventListener('mouseenter', ()=>{ticker.style.animationPlayState='paused'});
+    document.querySelector('.ticker-wrap').addEventListener('mouseleave', ()=>{ticker.style.animationPlayState='running'});
+  </script>
+</body>
+</html>
