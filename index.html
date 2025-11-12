@@ -26,10 +26,17 @@
   </script>
 
   <style>
+    :root{
+      --gold: #ffd700;
+      --bg-alpha: rgba(0,0,0,0.9);
+      --glass: rgba(255,255,255,0.06);
+    }
+
+    *{box-sizing:border-box}
     body {
       margin: 0;
       font-family: 'Orbitron', sans-serif;
-      background-color: #000;
+      background: url("ezgif-429320cb4399fc.gif") center/cover fixed no-repeat;
       color: white;
       overflow-x: hidden;
     }
@@ -37,158 +44,240 @@
     /* --- HAMBURGER MENU --- */
     .hamburger-menu {
       position: fixed;
-      top: 20px;
-      left: 20px;
-      z-index: 1000;
+      top: 18px;
+      left: 18px;
+      z-index: 2400;
+      display:flex;
+      align-items:flex-start;
+      gap:12px;
     }
 
+    /* ICON */
     .hamburger {
-      width: 35px;
-      height: 25px;
+      width: 42px;
+      height: 30px;
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
+      justify-content: center;
+      gap:6px;
+      padding:6px;
+      border-radius:8px;
       cursor: pointer;
-      transition: transform 0.3s ease;
+      background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+      border: 1px solid rgba(255,255,255,0.06);
+      box-shadow: 0 6px 18px rgba(0,0,0,0.45);
+      transition: transform .18s ease;
+      -webkit-tap-highlight-color: transparent;
     }
 
-    .hamburger div {
-      height: 4px;
+    .hamburger div{
+      height: 3px;
       width: 100%;
-      background-color: white;
-      border-radius: 4px;
-      transition: all 0.3s ease;
+      background: var(--gold);
+      border-radius: 3px;
+      transition: all .22s ease;
     }
 
-    .hamburger.active div:nth-child(1) {
-      transform: rotate(45deg) translateY(9px);
-    }
-    .hamburger.active div:nth-child(2) {
-      opacity: 0;
-    }
-    .hamburger.active div:nth-child(3) {
-      transform: rotate(-45deg) translateY(-9px);
-    }
+    .hamburger:active { transform: scale(.98); }
 
+    .hamburger.active div:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+    .hamburger.active div:nth-child(2) { opacity: 0; transform: translateX(-6px); }
+    .hamburger.active div:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+    /* SIDE MENU */
     .side-menu {
       position: fixed;
       top: 0;
-      left: -250px;
-      width: 220px;
+      left: -260px;
+      width: 240px;
       height: 100vh;
-      background: rgba(0, 0, 0, 0.9);
-      backdrop-filter: blur(8px);
+      background: var(--bg-alpha);
+      backdrop-filter: blur(10px) saturate(120%);
+      border-right: 1px solid rgba(255,255,255,0.03);
       display: flex;
       flex-direction: column;
-      padding-top: 80px;
-      transition: left 0.3s ease;
-      z-index: 999;
+      padding-top: 72px;
+      gap: 10px;
+      transition: left .28s cubic-bezier(.2,.9,.3,1);
+      z-index: 2300;
+      box-shadow: 6px 0 40px rgba(0,0,0,0.6);
     }
 
-    .side-menu a {
-      color: white;
+    /* when open */
+    .side-menu.open { left: 0; }
+
+    .side-menu a{
+      color: #fff;
       text-decoration: none;
-      font-size: 16px;
-      padding: 12px 24px;
-      opacity: 0;
-      transform: translateX(-20px);
-      transition: all 0.3s ease;
+      font-size: 15px;
+      padding: 12px 20px;
+      margin: 0 12px;
+      border-radius: 10px;
+      display:flex;
+      align-items:center;
+      gap:10px;
+      transition: transform .18s ease, background .18s ease;
+      background: transparent;
+    }
+    .side-menu a:hover{
+      background: rgba(255,255,255,0.06);
+      transform: translateX(6px) scale(1.01);
+      box-shadow: 0 6px 18px rgba(0,0,0,0.5);
     }
 
-    .side-menu.open {
-      left: 0;
-    }
-
-    .side-menu.open a {
-      opacity: 1;
-      transform: translateX(0);
-    }
-
-    .side-menu a:hover {
-      background: rgba(255, 255, 255, 0.1);
-      transform: translateX(5px);
-    }
-
-    .logout-btn {
-      color: #ff5555;
+    /* logout style at bottom */
+    .side-menu .logout-btn{
+      color: #ffb4b4;
       margin-top: auto;
-      border-top: 1px solid rgba(255,255,255,0.2);
+      padding-bottom: 30px;
+      border-top: 1px solid rgba(255,255,255,0.03);
+    }
+    .side-menu .logout-btn:hover{
+      background: rgba(255,80,80,0.08);
+      color: #ffdcdc;
     }
 
-    .logout-btn:hover {
-      background: rgba(255, 85, 85, 0.1);
-      color: #ff7777;
-    }
-
-    hr {
+    /* small separator */
+    .side-menu hr{
       width: 80%;
-      border: 0.5px solid rgba(255,255,255,0.1);
-      margin: 10px auto;
+      border: 0;
+      height: 1px;
+      background: rgba(255,255,255,0.03);
+      margin: 12px auto;
     }
 
-    /* Contenu principal */
-    .content {
-      text-align: center;
-      margin-top: 200px;
-    }
+    /* animate links when menu opens (stagger) */
+    .side-menu a { opacity: 0; transform: translateX(-12px); transition: opacity .22s ease, transform .22s ease; }
+    .side-menu.open a { opacity: 1; transform: translateX(0); }
 
-    .content h1 {
-      font-size: 2.5rem;
-      text-shadow: 0 0 10px #fff;
-      animation: fadeIn 2s ease;
-    }
+    /* Main content sample */
+    header{ padding: 56px 20px 16px; text-align:center; }
+    header h1{ font-size: 48px; color: var(--gold); margin: 0; text-shadow: 0 0 18px rgba(255,215,0,0.08); }
+    header p{ color: #bfefff; margin-top:8px; font-size: 16px }
 
-    @keyframes fadeIn {
-      from {opacity: 0; transform: translateY(20px);}
-      to {opacity: 1; transform: translateY(0);}
+    .section{ padding: 36px 20px; text-align:center; }
+    .ip-container{ margin-top: 26px; }
+    .ip-image{ width: 320px; max-width: 90%; border-radius: 14px; box-shadow: 0 10px 30px rgba(0,0,0,0.6); }
+
+    .copy-button, .discord-button{
+      background: linear-gradient(90deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
+      color: #fff; padding: 12px 22px; margin-top: 16px; border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 26px; cursor:pointer;
+    }
+    .copy-button:hover, .discord-button:hover{ transform: translateY(-3px); box-shadow: 0 8px 30px rgba(0,0,0,0.5); }
+
+    /* responsive tweak */
+    @media (max-width:600px){
+      .hamburger-menu{ left: 14px; top: 14px }
+      .side-menu{ width: 72%; }
     }
   </style>
 </head>
 
 <body>
   <!-- MENU HAMBURGER -->
-  <div class="hamburger-menu">
-    <div class="hamburger" id="hamburger">
-      <div></div>
-      <div></div>
-      <div></div>
+  <div class="hamburger-menu" aria-hidden="false">
+    <div class="hamburger" id="hamburger" aria-label="Ouvrir le menu" role="button" tabindex="0">
+      <div></div><div></div><div></div>
     </div>
 
-    <div class="side-menu" id="side-menu">
-      <a href="#">👑 Membre Staff</a>
-      <a href="#">🎬 Planning Cinéma</a>
-      <a href="#">🍍 Blox Fruits</a>
-      <a href="#">🛒 Boutique</a>
+    <nav class="side-menu" id="side-menu" aria-hidden="true" aria-label="Menu principal">
+      <!-- Utilise des liens réels (remplace si nécessaire) -->
+      <a href="staff.html">👑 <span>Membre Staff</span></a>
+      <a href="cinema.html">🎬 <span>Planning Cinéma</span></a>
+      <a href="bloxfruits.html">🍍 <span>Blox Fruits</span></a>
+      <a href="boutique.html">🛒 <span>Boutique</span></a>
+
       <hr>
-      <a href="#" class="logout-btn" onclick="logout()">🚪 Déconnexion</a>
-    </div>
+
+      <a href="#" class="logout-btn" id="logout-btn" onclick="logout()">🚪 Déconnexion</a>
+    </nav>
   </div>
 
   <!-- CONTENU PRINCIPAL -->
-  <div class="content">
-    <h1>Bienvenue sur Draevorn ⚔️</h1>
-    <p>Explorez les factions Lumière et Ténèbres...</p>
-  </div>
+  <header>
+    <h1>✨ Draevorn</h1>
+    <p>Factions Lumière & Ténèbres - PvP | Magie | Quêtes | Conquête</p>
+  </header>
+
+  <section class="section" id="presentation">
+    <h2>Bienvenue sur Draevorn</h2>
+    <div class="ip-container">
+      <h3>IP du serveur</h3>
+      <img src="image_2025-10-18_192004157.png" class="ip-image" alt="IP image">
+      <p class="server-status" id="mc-status">Chargement...</p>
+      <div>
+        <button class="copy-button" onclick="copyIP()">📋 Copier l'IP : draevorn.serveminecraft.net:25595</button>
+        <a href="https://discord.gg/C2Y4fAEBPh" target="_blank" rel="noopener">
+          <button class="discord-button">💬 Rejoindre le Discord</button>
+        </a>
+      </div>
+    </div>
+  </section>
 
   <script>
+    // MENU: click toggle + hover open + close on leave
     const hamburger = document.getElementById('hamburger');
     const menu = document.getElementById('side-menu');
 
-    // Ouvrir au survol, fermer quand on quitte
+    // toggle on click (works for mobile)
+    hamburger.addEventListener('click', (e) => {
+      e.stopPropagation();
+      hamburger.classList.toggle('active');
+      menu.classList.toggle('open');
+      // accessibility
+      menu.setAttribute('aria-hidden', String(!menu.classList.contains('open')));
+    });
+
+    // open on hover (desktop)
     hamburger.addEventListener('mouseenter', () => {
       hamburger.classList.add('active');
       menu.classList.add('open');
+      menu.setAttribute('aria-hidden', 'false');
     });
 
+    // close when mouse leaves the menu
     menu.addEventListener('mouseleave', () => {
       hamburger.classList.remove('active');
       menu.classList.remove('open');
+      menu.setAttribute('aria-hidden', 'true');
     });
 
-    function logout() {
+    // also close menu when clicking anywhere outside (useful on mobile after opening)
+    document.addEventListener('click', (e) => {
+      if (!menu.contains(e.target) && !hamburger.contains(e.target)) {
+        hamburger.classList.remove('active');
+        menu.classList.remove('open');
+        menu.setAttribute('aria-hidden', 'true');
+      }
+    });
+
+    function logout(){
       sessionStorage.removeItem('draevorn_logged');
       window.location.replace('login.html');
     }
+
+    function copyIP() {
+      navigator.clipboard.writeText("draevorn.serveminecraft.net:25595");
+      alert("IP copiée !");
+    }
+
+    // mc server status
+    const ip = "draevorn.serveminecraft.net";
+    const port = "25595";
+    fetch(`https://api.mcsrvstat.us/2/${ip}:${port}`)
+      .then(r => r.json())
+      .then(data => {
+        const status = document.getElementById("mc-status");
+        if (data.online) {
+          status.innerHTML = `🟢 <span class="server-online">En ligne</span> (${data.players.online}/${data.players.max} joueurs)`;
+        } else {
+          status.innerHTML = `🔴 <span class="server-offline">Hors ligne</span>`;
+        }
+      })
+      .catch(() => {
+        document.getElementById("mc-status").innerHTML = `⚠️ Impossible de vérifier`;
+      });
   </script>
 </body>
 </html>
