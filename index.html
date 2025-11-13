@@ -61,7 +61,7 @@
       100% {opacity: 1; transform: scale(1.1);}
     }
 
-    /* HAMBURGER MENU - inchangé */
+    /* HAMBURGER MENU */
     .hamburger-menu {
       position: fixed;
       top: 18px;
@@ -97,6 +97,15 @@
     .hamburger.active div:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
     .hamburger.active div:nth-child(2) { opacity: 0; transform: translateX(-6px); }
     .hamburger.active div:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+    .santa-dance {
+      font-size: 26px;
+      animation: santaDance 1.2s infinite alternate ease-in-out;
+    }
+    @keyframes santaDance {
+      from { transform: rotate(-15deg) scale(1); }
+      to { transform: rotate(15deg) scale(1.2); }
+    }
 
     .side-menu {
       position: fixed;
@@ -144,17 +153,7 @@
       background: rgba(255,80,80,0.08);
       color: #ffdcdc;
     }
-    .side-menu hr{
-      width: 80%;
-      border: 0;
-      height: 1px;
-      background: rgba(255,255,255,0.03);
-      margin: 12px auto;
-    }
-    .side-menu a { opacity: 0; transform: translateX(-12px); transition: opacity .22s ease, transform .22s ease; }
-    .side-menu.open a { opacity: 1; transform: translateX(0); }
 
-    /* --- CONTENU PRINCIPAL --- */
     header {
       position: relative;
       text-align: center;
@@ -227,23 +226,31 @@
       font-size: 14px;
     }
 
-    /* Responsive */
-    @media (max-width:600px){
-      .hamburger-menu{ left: 14px; top: 14px }
-      .side-menu{ width: 72%; }
-      header h1{ font-size: 48px; }
+    #link-wow {
+      background: rgba(255,255,255,0.05);
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 20px;
+      padding: 10px 20px;
+      margin-top: 30px;
+      font-size: 15px;
+      cursor: pointer;
+      transition: 0.3s ease;
+    }
+    #link-wow:hover {
+      background: rgba(77,184,255,0.2);
+      transform: scale(1.05);
     }
   </style>
 </head>
 
 <body>
-  <!-- MENU HAMBURGER -->
+  <!-- MENU -->
   <div class="hamburger-menu">
     <div class="hamburger" id="hamburger">
       <div></div><div></div><div></div>
     </div>
-      <div class="santa-dance">🎅</div>
-
+    <div class="santa-dance">🎅</div>
 
     <nav class="side-menu" id="side-menu">
       <a href="staff.html">👑 Membre Staff</a>
@@ -255,10 +262,14 @@
     </nav>
   </div>
 
-  <!-- CONTENU PRINCIPAL -->
+  <!-- CONTENU -->
   <header>
     <h1>✨ Draevorn</h1>
     <p>Factions Lumière & Ténèbres - PvP | Magie | Quêtes | Conquête</p>
+
+    <!-- Bouton pour lier le compte WoW -->
+    <button id="link-wow">🔗 Lier mon compte WoW</button>
+    <div id="wow-result" style="margin-top:10px; color:#fff;"></div>
   </header>
 
   <!-- SECTION NEWS -->
@@ -280,8 +291,8 @@
     </div>
   </section>
 
+  <!-- JS -->
   <script>
-    // MENU JS - inchangé
     const hamburger = document.getElementById('hamburger');
     const menu = document.getElementById('side-menu');
 
@@ -318,7 +329,30 @@
     }
   </script>
 
-    <!-- 🎅 Neige de Pères Noël -->
+  <!-- Script de liaison du compte WoW -->
+  <script>
+  document.getElementById('link-wow').addEventListener('click', async () => {
+    const pseudo = prompt("Entre ton pseudo WoW :");
+    if (!pseudo) return;
+    
+    document.getElementById('wow-result').textContent = "Connexion à Draevorn WoW...";
+    
+    const res = await fetch('https://ton-hebergement-php.com/linkwow.php', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({ pseudo })
+    });
+    const data = await res.json();
+    
+    if (data.success) {
+      document.getElementById('wow-result').textContent = "✅ Compte WoW lié avec succès !";
+    } else {
+      document.getElementById('wow-result').textContent = "❌ Erreur : " + data.error;
+    }
+  });
+  </script>
+
+  <!-- 🎅 Neige de Pères Noël -->
   <script>
     const santaContainer = document.createElement('div');
     santaContainer.style.position = 'fixed';
@@ -326,9 +360,9 @@
     santaContainer.style.left = '0';
     santaContainer.style.width = '100%';
     santaContainer.style.height = '100%';
-    santaContainer.style.pointerEvents = 'none'; // ne gêne pas les clics
+    santaContainer.style.pointerEvents = 'none';
     santaContainer.style.overflow = 'hidden';
-    santaContainer.style.zIndex = '-1'; // derrière le contenu
+    santaContainer.style.zIndex = '-1';
     document.body.appendChild(santaContainer);
 
     function createSanta() {
@@ -337,32 +371,22 @@
       santa.style.position = 'absolute';
       santa.style.left = Math.random() * 100 + 'vw';
       santa.style.top = '-40px';
-      santa.style.fontSize = (Math.random() * 18 + 18) + 'px'; // taille aléatoire
+      santa.style.fontSize = (Math.random() * 18 + 18) + 'px';
       santa.style.opacity = Math.random() * 0.8 + 0.2;
-      santa.style.transition = 'transform 0.2s ease-out';
       santaContainer.appendChild(santa);
 
-      // vitesse & direction
-      const fallDuration = Math.random() * 6 + 6; // 6 à 12s
-      const drift = (Math.random() - 0.5) * 100; // dérive horizontale
+      const fallDuration = Math.random() * 6 + 6;
+      const drift = (Math.random() - 0.5) * 100;
 
       santa.animate([
         { transform: `translate(0, 0) rotate(0deg)` },
         { transform: `translate(${drift}px, 100vh) rotate(${Math.random() * 360}deg)` }
-      ], {
-        duration: fallDuration * 1000,
-        easing: 'linear'
-      });
+      ], { duration: fallDuration * 1000, easing: 'linear' });
 
-      // suppression à la fin
       setTimeout(() => santa.remove(), fallDuration * 1000);
     }
 
-    // crée régulièrement des 🎅
-    setInterval(createSanta, 800); // toutes les 0.8s
+    setInterval(createSanta, 800);
   </script>
-</body>
-</html>
-
 </body>
 </html>
