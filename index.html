@@ -45,7 +45,6 @@
       position: relative;
     }
 
-    /* --- Effet de lueurs bleues/blanches --- */
     body::before, body::after {
       content: "";
       position: absolute;
@@ -57,11 +56,10 @@
       z-index: 0;
     }
     @keyframes lights {
-      0% {opacity: 0.7; transform: scale(1);}
-      100% {opacity: 1; transform: scale(1.1);}
+      0% {opacity: 0.7; transform: scale(1);}    
+      100% {opacity: 1; transform: scale(1.1);} 
     }
 
-    /* HAMBURGER MENU */
     .hamburger-menu {
       position: fixed;
       top: 18px;
@@ -125,6 +123,7 @@
       box-shadow: 6px 0 40px rgba(0,0,0,0.6);
     }
     .side-menu.open { left: 0; }
+
     .side-menu a{
       color: #fff;
       text-decoration: none;
@@ -143,16 +142,6 @@
       transform: translateX(6px) scale(1.01);
       box-shadow: 0 6px 18px rgba(0,0,0,0.5);
     }
-    .side-menu .logout-btn{
-      color: #ffb4b4;
-      margin-top: auto;
-      padding-bottom: 30px;
-      border-top: 1px solid rgba(255,255,255,0.03);
-    }
-    .side-menu .logout-btn:hover{
-      background: rgba(255,80,80,0.08);
-      color: #ffdcdc;
-    }
 
     header {
       position: relative;
@@ -164,66 +153,12 @@
       font-size: 64px;
       font-weight: 600;
       color: var(--glow);
-      text-shadow: 0 0 15px rgba(255,255,255,0.8),
-                   0 0 30px rgba(77,184,255,0.4),
-                   0 0 60px rgba(77,184,255,0.3);
+      text-shadow: 0 0 15px rgba(255,255,255,0.8), 0 0 30px rgba(77,184,255,0.4), 0 0 60px rgba(77,184,255,0.3);
       animation: glowPulse 4s ease-in-out infinite;
     }
     @keyframes glowPulse {
-      0%,100% { text-shadow: 0 0 15px rgba(255,255,255,0.8),
-                           0 0 30px rgba(77,184,255,0.4),
-                           0 0 60px rgba(77,184,255,0.3); }
-      50% { text-shadow: 0 0 25px rgba(255,255,255,1),
-                      0 0 50px rgba(77,184,255,0.7),
-                      0 0 90px rgba(77,184,255,0.5); }
-    }
-    header p {
-      color: #bfefff;
-      margin-top: 10px;
-      font-size: 16px;
-      text-shadow: 0 0 8px rgba(77,184,255,0.3);
-    }
-
-    /* Section News */
-    .news-section {
-      text-align: center;
-      padding: 60px 20px 80px;
-      z-index: 2;
-      position: relative;
-    }
-    .news-section h2 {
-      font-size: 28px;
-      color: #ffffff;
-      margin-bottom: 24px;
-      text-shadow: 0 0 15px rgba(255,255,255,0.4);
-    }
-    .news-cards {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 20px;
-    }
-    .news-card {
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.07);
-      border-radius: 18px;
-      width: 260px;
-      padding: 20px;
-      box-shadow: 0 0 20px rgba(77,184,255,0.1);
-      transition: transform .25s ease, box-shadow .25s ease;
-    }
-    .news-card:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 25px rgba(77,184,255,0.4);
-    }
-    .news-card h3 {
-      color: #fff;
-      font-size: 18px;
-      margin-bottom: 8px;
-    }
-    .news-card p {
-      color: #bfefff;
-      font-size: 14px;
+      0%,100% { text-shadow: 0 0 15px rgba(255,255,255,0.8), 0 0 30px rgba(77,184,255,0.4), 0 0 60px rgba(77,184,255,0.3); }
+      50% { text-shadow: 0 0 25px rgba(255,255,255,1), 0 0 50px rgba(77,184,255,0.7), 0 0 90px rgba(77,184,255,0.5); }
     }
 
     #link-wow {
@@ -245,7 +180,6 @@
 </head>
 
 <body>
-  <!-- MENU -->
   <div class="hamburger-menu">
     <div class="hamburger" id="hamburger">
       <div></div><div></div><div></div>
@@ -262,131 +196,34 @@
     </nav>
   </div>
 
-  <!-- CONTENU -->
   <header>
     <h1>✨ Draevorn</h1>
     <p>Factions Lumière & Ténèbres - PvP | Magie | Quêtes | Conquête</p>
-
-    <!-- Bouton pour lier le compte WoW -->
     <button id="link-wow">🔗 Lier mon compte WoW</button>
     <div id="wow-result" style="margin-top:10px; color:#fff;"></div>
   </header>
 
-  <!-- SECTION NEWS -->
-  <section class="news-section">
-    <h2>📰 Actualités</h2>
-    <div class="news-cards">
-      <div class="news-card">
-        <h3>🛠️ Serveur Minecraft</h3>
-        <p>Actuellement en maintenance.</p>
-      </div>
-      <div class="news-card">
-        <h3>⚔️ Serveur World of Warcraft</h3>
-        <p>En cours de préparation.</p>
-      </div>
-      <div class="news-card">
-        <h3>🌐 Site Draevorn</h3>
-        <p>Mise à jour majeure en cours.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- JS -->
   <script>
-    const hamburger = document.getElementById('hamburger');
-    const menu = document.getElementById('side-menu');
+    document.getElementById('link-wow').addEventListener('click', async () => {
+      const pseudo = prompt("Entre ton pseudo WoW :");
+      if (!pseudo) return;
 
-    hamburger.addEventListener('click', (e) => {
-      e.stopPropagation();
-      hamburger.classList.toggle('active');
-      menu.classList.toggle('open');
-      menu.setAttribute('aria-hidden', String(!menu.classList.contains('open')));
-    });
+      document.getElementById('wow-result').textContent = "Connexion à Draevorn WoW...";
 
-    hamburger.addEventListener('mouseenter', () => {
-      hamburger.classList.add('active');
-      menu.classList.add('open');
-      menu.setAttribute('aria-hidden', 'false');
-    });
+      const res = await fetch('http://79.90.44.4/linkwow.php', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ pseudo })
+      });
 
-    menu.addEventListener('mouseleave', () => {
-      hamburger.classList.remove('active');
-      menu.classList.remove('open');
-      menu.setAttribute('aria-hidden', 'true');
-    });
+      const data = await res.json();
 
-    document.addEventListener('click', (e) => {
-      if (!menu.contains(e.target) && !hamburger.contains(e.target)) {
-        hamburger.classList.remove('active');
-        menu.classList.remove('open');
-        menu.setAttribute('aria-hidden', 'true');
+      if (data.success) {
+        document.getElementById('wow-result').textContent = "✅ Compte WoW lié avec succès !";
+      } else {
+        document.getElementById('wow-result').textContent = "❌ Erreur : " + data.error;
       }
     });
-
-    function logout(){
-      sessionStorage.removeItem('draevorn_logged');
-      window.location.replace('login.html');
-    }
-  </script>
-
-  <!-- Script de liaison du compte WoW -->
-  <script>
-  document.getElementById('link-wow').addEventListener('click', async () => {
-    const pseudo = prompt("Entre ton pseudo WoW :");
-    if (!pseudo) return;
-    
-    document.getElementById('wow-result').textContent = "Connexion à Draevorn WoW...";
-    
-    const res = await fetch('https://ton-hebergement-php.com/linkwow.php', {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({ pseudo })
-    });
-    const data = await res.json();
-    
-    if (data.success) {
-      document.getElementById('wow-result').textContent = "✅ Compte WoW lié avec succès !";
-    } else {
-      document.getElementById('wow-result').textContent = "❌ Erreur : " + data.error;
-    }
-  });
-  </script>
-
-  <!-- 🎅 Neige de Pères Noël -->
-  <script>
-    const santaContainer = document.createElement('div');
-    santaContainer.style.position = 'fixed';
-    santaContainer.style.top = '0';
-    santaContainer.style.left = '0';
-    santaContainer.style.width = '100%';
-    santaContainer.style.height = '100%';
-    santaContainer.style.pointerEvents = 'none';
-    santaContainer.style.overflow = 'hidden';
-    santaContainer.style.zIndex = '-1';
-    document.body.appendChild(santaContainer);
-
-    function createSanta() {
-      const santa = document.createElement('div');
-      santa.textContent = '🎅';
-      santa.style.position = 'absolute';
-      santa.style.left = Math.random() * 100 + 'vw';
-      santa.style.top = '-40px';
-      santa.style.fontSize = (Math.random() * 18 + 18) + 'px';
-      santa.style.opacity = Math.random() * 0.8 + 0.2;
-      santaContainer.appendChild(santa);
-
-      const fallDuration = Math.random() * 6 + 6;
-      const drift = (Math.random() - 0.5) * 100;
-
-      santa.animate([
-        { transform: `translate(0, 0) rotate(0deg)` },
-        { transform: `translate(${drift}px, 100vh) rotate(${Math.random() * 360}deg)` }
-      ], { duration: fallDuration * 1000, easing: 'linear' });
-
-      setTimeout(() => santa.remove(), fallDuration * 1000);
-    }
-
-    setInterval(createSanta, 800);
   </script>
 </body>
 </html>
