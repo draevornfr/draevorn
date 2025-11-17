@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Serveur WoW - Inscription</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600&family=Inter:wght@300;400;600&display=swap" rel="stylesheet" />
+  <style>
+    :root{
+      --accent:#4db8ff;
+      --accent2:#6cd6ff;
+      --bg1:#020312;
+      --bg2:#001b33;
+      --text:#f4f7ff;
+    }
+
+    *{box-sizing:border-box;}
+
+    body{
+      margin:0;
+      font-family:'Inter',system-ui,-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background:radial-gradient(circle at top,#03163a,#000);
+      color:var(--text);
+      min-height:100vh;
+    }
+
+    /* HEADER / NAVBAR */
+    header{
+      position:fixed;
+      top:0;
+      left:0;
+      right:0;
+      z-index:20;
+      background:linear-gradient(90deg,rgba(0,0,0,0.85),rgba(0,10,30,0.9));
+      border-bottom:1px solid rgba(77,184,255,0.2);
+      backdrop-filter:blur(18px);
+    }
+
+    .nav{
+      max-width:1100px;
+      margin:0 auto;
+      padding:10px 18px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+    }
+
+    .logo{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      font-family:'Orbitron',sans-serif;
+      font-weight:600;
+      letter-spacing:1px;
+    }
+
+    .logo-mark{
+      width:26px;
+      height:26px;
+      border-radius:999px;
+      background:conic-gradient(from 140deg,var(--accent),var(--accent2),#fff,var(--accent));
+      box-shadow:0 0 18px rgba(77,184,255,0.7);
+    }
+
+    .nav-links a{
+      margin-left:18px;
+      text-decoration:none;
+      color:#c9e4ff;
+      font-size:14px;
+      text-transform:uppercase;
+      letter-spacing:.08em;
+      padding-bottom:3px;
+      border-bottom:2px solid transparent;
+      transition:.2s;
+    }
+
+    .nav-links a:hover{
+      color:#fff;
+      border-color:var(--accent);
+    }
+
+    main{
+      max-width:1100px;
+      margin:0 auto;
+      padding:100px 18px 60px;
+    }
+
+    /* HERO */
+    .hero{
+      display:grid;
+      grid-template-columns:minmax(0,2fr) minmax(0,1.6fr);
+      gap:40px;
+      align-items:center;
+      margin-bottom:70px;
+    }
+
+    @media(max-width:850px){
+      .hero{
+        grid-template-columns:1fr;
+      }
+      main{
+        padding-top:90px;
+      }
+    }
+
+    .hero-title{
+      font-family:'Orbitron',sans-serif;
+      font-size:28px;
+      line-height:1.2;
+      margin-bottom:12px;
+      text-transform:uppercase;
+    }
+
+    .hero-title span{
+      background:linear-gradient(135deg,var(--accent),var(--accent2));
+      -webkit-background-clip:text;
+      background-clip:text;
+      color:transparent;
+    }
+
+    .hero-subtitle{
+      font-size:15px;
+      color:#d5e6ff;
+      max-width:480px;
+      margin-bottom:20px;
+    }
+
+    .hero-tags{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      margin-bottom:22px;
+    }
+
+    .pill{
+      font-size:11px;
+      padding:6px 10px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,0.08);
+      background:rgba(0,10,30,0.8);
+      text-transform:uppercase;
+      letter-spacing:.16em;
+      color:#c0d8ff;
+    }
+
+    .hero-actions{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-bottom:10px;
+    }
+
+    .btn{
+      border:none;
+      cursor:pointer;
+      border-radius:999px;
+      font-size:14px;
+      padding:10px 16px;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      text-decoration:none;
+      transition:.22s;
+      font-weight:600;
+    }
+
+    .btn-primary{
+      background:linear-gradient(135deg,var(--accent),var(--accent2));
+      color:#000;
+      box-shadow:0 10px 30px rgba(77,184,255,0.5);
+    }
+
+    .btn-primary:hover{
+      transform:translateY(-1px) scale(1.03);
+      box-shadow:0 14px 35px rgba(77,184,255,0.65);
+    }
+
+    .btn-ghost{
+      background:rgba(255,255,255,0.04);
+      color:#cfe6ff;
+      border:1px solid rgba(255,255,255,0.12);
+    }
+
+    .btn-ghost:hover{
+      background:rgba(255,255,255,0.08);
+      transform:translateY(-1px);
+    }
+
+    .hero-meta{
+      font-size:12px;
+      color:#9db7dd;
+    }
+
+    .hero-meta strong{
+      color:#e4f1ff;
+    }
+
+    /* CARTE INSCRIPTION (Liquid Glass) */
+    .card-wrap{
+      display:flex;
+      justify-content:center;
+    }
+
+    .card{
+      width:100%;
+      max-width:360px;
+      padding:26px 24px 26px;
+      border-radius:26px;
+      background:radial-gradient(circle at top left,rgba(125,216,255,0.16),transparent),
+                 rgba(8,22,45,0.96);
+      box-shadow:0 25px 60px rgba(0,0,0,0.55);
+      backdrop-filter:blur(20px) saturate(180%);
+      border:1px solid rgba(255,255,255,0.16);
+      animation:float 7s infinite ease-in-out;
+      position:relative;
+      overflow:hidden;
+    }
+
+    .card::before{
+      content:"";
+      position:absolute;
+      inset:-40%;
+      background:radial-gradient(circle at 10% 0,rgba(255,255,255,0.2),transparent 55%),
+                 radial-gradient(circle at 80% 120%,rgba(77,184,255,0.25),transparent 60%);
+      opacity:.5;
+      mix-blend-mode:soft-light;
+      pointer-events:none;
+    }
+
+    @keyframes float{
+      0%,100%{transform:translateY(-6px)}
+      50%{transform:translateY(6px)}
+    }
+
+    .card-header{
+      position:relative;
+      z-index:1;
+      margin-bottom:18px;
+    }
+
+    .card-kicker{
+      font-size:11px;
+      text-transform:uppercase;
+      letter-spacing:.18em;
+      color:#9fd6ff;
+      margin-bottom:4px;
+    }
+
+    .card-title{
+      font-family:'Orbitron',sans-serif;
+      font-size:18px;
+      margin:0;
+      color:#cfeaff;
+    }
+
+    .card-sub{
+      font-size:12px;
+      color:#c3ddff;
+      margin-top:4px;
+    }
+
+    .input{
+      margin-bottom:16px;
+      position:relative;
+      z-index:1;
+    }
+
+    .input label{
+      font-size:12px;
+      color:#e5f5ff;
+    }
+
+    .input input{
+      width:100%;
+      margin-top:6px;
+      padding:11px 12px;
+      border:none;
+      outline:none;
+      font-size:14px;
+      color:white;
+      border-radius:14px;
+      background:rgba(4,10,25,0.9);
+      box-shadow:inset 0 0 10px rgba(0,0,0,0.6);
+      border:1px solid rgba(255,255,255,0.1);
+    }
+
+    .hint{
+      font-size:11px;
+      color:#9fbce8;
+      margin-bottom:8px;
+    }
+
+    button[type="submit"]{
+      width:100%;
+      padding:12px;
+      border:none;
+      border-radius:20px;
+      font-size:14px;
+      cursor:pointer;
+      background:linear-gradient(135deg,var(--accent),var(--accent2));
+      color:#000;
+      font-weight:bold;
+      transition:.25s;
+      position:relative;
+      z-index:1;
+      box-shadow:0 10px 28px rgba(77,184,255,0.55);
+    }
+
+    button[type="submit"]:hover{
+      transform:scale(1.03) translateY(-1px);
+      box-shadow:0 14px 34px rgba(77,184,255,0.75);
+    }
+
+    #result{
+      margin-top:14px;
+      text-align:center;
+      font-size:13px;
+      min-height:20px;
+      position:relative;
+      z-index:1;
+    }
+
+    /* AUTRES SECTIONS */
+    section{
+      margin-bottom:60px;
+    }
+
+    .section-title{
+      font-family:'Orbitron',sans-serif;
+      font-size:18px;
+      margin-bottom:10px;
+      text-transform:uppercase;
+      letter-spacing:.12em;
+      color:#cfeaff;
+    }
+
+    .feature-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+      gap:18px;
+      margin-top:12px;
+    }
+
+    .feature-card{
+      padding:16px 14px;
+      border-radius:18px;
+      background:rgba(2,10,30,0.9);
+      border:1px solid rgba(255,255,255,0.06);
+      font-size:13px;
+      color:#c7dcff;
+    }
+
+    .feature-card strong{
+      display:block;
+      margin-bottom:6px;
+      color:#e4f1ff;
+      font-size:13px;
+    }
+
+    footer{
+      text-align:center;
+      font-size:11px;
+      color:#7f9ccc;
+      padding:15px;
+      border-top:1px solid rgba(255,255,255,0.06);
+      background:rgba(0,0,0,0.7);
+      margin-top:20px;
+    }
+
+    a{color:var(--accent);}
+    a:hover{color:var(--accent2);}
+  </style>
+</head>
+<body>
+<header>
+  <div class="nav">
+    <div class="logo">
+      <div class="logo-mark"></div>
+      <div>NomDuServeur<span style="font-size:11px;opacity:.7;">&nbsp;MoP</span></div>
+    </div>
+    <nav class="nav-links">
+      <a href="#accueil">Accueil</a>
+      <a href="#features">Infos</a>
+      <a href="#inscription">Inscription</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <!-- HERO / ACCUEIL -->
+  <section id="accueil" class="hero">
+    <div>
+      <div class="hero-title">
+        Votre royaume <span>Mists of Pandaria</span> réouvre ses portes
+      </div>
+      <p class="hero-subtitle">
+        Rejoignez un serveur privé MoP optimisé, stable et prêt pour le PvE &amp; PvP end-game.
+        Crée ton compte en quelques secondes, télécharge le client et pars à l’aventure.
+      </p>
+
+      <div class="hero-tags">
+        <span class="pill">Patch 5.4.8</span>
+        <span class="pill">Blizzlike / Fun</span>
+        <span class="pill">XP x3</span>
+      </div>
+
+      <div class="hero-actions">
+        <a href="#inscription" class="btn btn-primary">
+          ✨ Créer mon compte
+        </a>
+        <a href="https://discord.gg/ton-discord" target="_blank" class="btn btn-ghost">
+          💬 Rejoindre le Discord
+        </a>
+      </div>
+
+      <p class="hero-meta">
+        <strong>Realmlist :</strong> set realmlist <code>79.90.44.4</code><br/>
+        <strong>Statut :</strong> <span>En ligne</span> (test)
+      </p>
+    </div>
+
+    <!-- CARTE INSCRIPTION -->
+    <div id="inscription" class="card-wrap">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-kicker">Inscription instantanée</div>
+          <h2 class="card-title">Créer un compte WoW</h2>
+          <p class="card-sub">Un compte = un accès à tous vos personnages sur le royaume.</p>
+        </div>
+
+        <form id="inscription-form">
+          <div class="input">
+            <label>Pseudo</label>
+            <input type="text" id="username" required>
+          </div>
+
+          <div class="input">
+            <label>Mot de passe</label>
+            <input type="password" id="password" required>
+          </div>
+
+          <div class="hint">
+            • 3–16 caractères pour le pseudo<br/>
+            • 6–32 caractères pour le mot de passe
+          </div>
+
+          <button type="submit">Créer mon compte</button>
+        </form>
+
+        <div id="result"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INFOS SERVEUR -->
+  <section id="features">
+    <h3 class="section-title">Infos serveur</h3>
+    <div class="feature-grid">
+      <div class="feature-card">
+        <strong>Progression</strong>
+        Progression orientée Mists of Pandaria avec un équilibrage pensé pour le leveling
+        rapide mais pas instantané. Raids et donjons scriptés au maximum.
+      </div>
+      <div class="feature-card">
+        <strong>Royaume</strong>
+        Latence optimisée, stabilité accrue et protections contre les crashs. Serveur
+        hébergé en France pour une meilleure réactivité.
+      </div>
+      <div class="feature-card">
+        <strong>Communauté</strong>
+        Staff actif, événements réguliers, aides pour les nouveaux joueurs et un Discord
+        pour suivre l’actualité du serveur.
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  © <span id="year"></span> NomDuServeur - Projet privé World of Warcraft (EmuCoach / TrinityCore).
+</footer>
+
+<script>
+  // ⚙️ À ADAPTER : URL de ton script PHP qui fait le SOAP
+  const API_URL = 'https://ton-serveur-ou-ip/create_wow_account.php';
+  // Par ex : 'http://79.90.44.4/create_wow_account.php' ou ton domaine
+
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  const form = document.getElementById('inscription-form');
+  const resultEl = document.getElementById('result');
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    resultEl.style.color = '#ffffff';
+    resultEl.textContent = 'Création du compte...';
+
+    const username = document.getElementById('username').value.trim();
+    const password = document.getElementById('password').value.trim();
+
+    // Validation côté client (même règles que côté PHP)
+    if (!/^[A-Za-z0-9_]{3,16}$/.test(username)) {
+      resultEl.style.color = '#ffaaaa';
+      resultEl.textContent = 'Le pseudo doit contenir 3 à 16 caractères (lettres, chiffres, _).';
+      return;
+    }
+    if (password.length < 6 || password.length > 32) {
+      resultEl.style.color = '#ffaaaa';
+      resultEl.textContent = 'Le mot de passe doit contenir entre 6 et 32 caractères.';
+      return;
+    }
+
+    try {
+      const fd = new FormData();
+      fd.append('username', username);
+      fd.append('password', password);
+
+      const res = await fetch(API_URL, {
+        method: 'POST',
+        body: fd
+      });
+
+      let json;
+      try {
+        json = await res.json();
+      } catch (err) {
+        throw new Error("Réponse invalide du serveur.");
+      }
+
+      if (json.success) {
+        resultEl.style.color = '#a6ffb0';
+        resultEl.textContent = '✔ Compte WoW créé ! Tu peux te connecter en jeu.';
+        form.reset();
+      } else {
+        resultEl.style.color = '#ffaaaa';
+        resultEl.textContent = '❌ ' + (json.error || 'Erreur inconnue.');
+      }
+    } catch (err) {
+      console.error(err);
+      resultEl.style.color = '#ffaaaa';
+      resultEl.textContent = '❌ Impossible de contacter le serveur (' + err.message + ').';
+    }
+  });
+</script>
+</body>
+</html>
