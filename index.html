@@ -159,6 +159,45 @@
         document.getElementById('wow-result').textContent = "❌ Erreur : " + data.error;
       }
     });
+    async function generateTokenForWebUser(webUser) {
+  const res = await fetch('http://79.90.44.4/generate_token.php', {
+    method: 'POST',
+    headers: {'Content-Type':'application/json'},
+    body: JSON.stringify({ webUser })
+  });
+  return await res.json();
+}
+
+async function checkTokenStatus(token) {
+  const res = await fetch('http://79.90.44.4/status_token.php?token=' + encodeURIComponent(token));
+  return await res.json();
+}
+
+// exemple d'utilisation depuis bouton
+document.getElementById('link-wow').addEventListener('click', async () => {
+  const webUser = JSON.parse(sessionStorage.getItem('draevorn_logged')).user;
+  const r = await generateTokenForWebUser(webUser);
+  if (!r.success) return alert('Erreur génération token');
+
+  const token = r.token;
+  alert("Token généré : " + token + "\nEntrez en jeu : /link " + token);
+
+  // polling
+  const maxTries = 40; // ~2 minutes si interval 3s
+  let tries = 0;
+  const interval = setInterval(async () => {
+    tries++;
+    const s = await checkTokenStatus(token);
+    if (s.success && s.linked) {
+      clearInterval(interval);
+      alert("Compte lié avec " + s.game_account);
+    } else if (tries >= maxTries) {
+      clearInterval(interval);
+      alert("Temps écoulé, génère un nouveau token.");
+    }
+  }, 3000);
+});
+
   </script>
 
   <script>
