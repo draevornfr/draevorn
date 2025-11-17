@@ -1,4 +1,4 @@
-<?html
+<?php
 // On renvoie toujours du JSON
 header('Content-Type: application/json; charset=utf-8');
 
