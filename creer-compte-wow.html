@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Créer un Compte WoW</title>
+</head>
+<body style="font-family:Arial;background:#001b33;color:white;padding:40px;">
+
+<h2>Créer un compte World of Warcraft</h2>
+
+<form id="form">
+  <label>Pseudo :</label><br>
+  <input type="text" id="user" required><br><br>
+
+  <label>Mot de passe :</label><br>
+  <input type="password" id="pass" required><br><br>
+
+  <button type="submit">Créer mon compte</button>
+</form>
+
+<div id="result" style="margin-top:20px;"></div>
+
+<script>
+document.getElementById('form').addEventListener('submit', async (e) => {
+  e.preventDefault();
+
+  const fd = new FormData();
+  fd.append('username', document.getElementById('user').value);
+  fd.append('password', document.getElementById('pass').value);
+
+  const res = await fetch('http://79.90.44.4/create_wow_account.php', {
+    method: 'POST',
+    body: fd
+  });
+  const json = await res.json();
+
+  document.getElementById('result').textContent =
+    json.success ? "✔ Compte créé !" : "❌ " + json.error;
+});
+</script>
+
+</body>
+</html>
