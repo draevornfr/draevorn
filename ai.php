@@ -1,37 +1,51 @@
 <?php
-header("Content-Type: application/json");
-header("Access-Control-Allow-Origin: *");
-header("Access-Control-Allow-Headers: Content-Type");
+// ai.php
+header('Content-Type: application/json');
 
-$data = json_decode(file_get_contents("php://input"), true);
+// Remplace par ta clé OpenAI
+$OPENAI_API_KEY = 'YOUR_OPENAI_API_KEY_HERE';
 
-if (!isset($data["message"])) {
-    echo json_encode(["error" => "Message manquant"]);
+// Lire le JSON envoyé
+$input = json_decode(file_get_contents('php://input'), true);
+if (!isset($input['prompt'])) {
+    echo json_encode(['response' => '❌ Pas de prompt reçu']);
     exit;
 }
 
-// ⬇️ METS TA CLÉ OPENAI ICI (SÉCURISÉE)
-$apiKey = "TA_CLE_API";
+$prompt = $input['prompt'];
 
-$payload = [
-    "model" => "gpt-4o-mini",
+// Préparer la requête à OpenAI
+$data = [
+    "model" => "gpt-3.5-turbo",
     "messages" => [
-        ["role" => "system", "content" => "Tu es l’IA officielle du monde Draevorn. Réponds toujours de façon stylée et immersive."],
-        ["role" => "user", "content" => $data["message"]]
-    ]
+        ["role"=>"system","content"=>"Tu es Draevorn IA, assistante RP pour le site Draevorn, personnalité magique et mystérieuse."],
+        ["role"=>"user","content"=>$prompt]
+    ],
+    "temperature"=>0.7,
+    "max_tokens"=>300
 ];
 
 $ch = curl_init("https://api.openai.com/v1/chat/completions");
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 curl_setopt($ch, CURLOPT_HTTPHEADER, [
     "Content-Type: application/json",
-    "Authorization: Bearer $apiKey"
+    "Authorization: Bearer $OPENAI_API_KEY"
 ]);
 curl_setopt($ch, CURLOPT_POST, true);
-curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($payload));
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
 
 $response = curl_exec($ch);
+if(curl_errno($ch)){
+    echo json_encode(['response'=>"❌ Erreur CURL : ".curl_error($ch)]);
+    exit;
+}
 curl_close($ch);
 
-echo $response;
-?>
+// Traiter la réponse
+$resData = json_decode($response, true);
+if(isset($resData['choices'][0]['message']['content'])){
+    $text = trim($resData['choices'][0]['message']['content']);
+    echo json_encode(['response'=>$text]);
+} else {
+    echo json_encode(['response'=>"❌ Erreur API : réponse vide"]);
+}
