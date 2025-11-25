@@ -3,7 +3,7 @@
 header('Content-Type: application/json');
 
 // Remplace par ta clé OpenAI
-$OPENAI_API_KEY = 'YOUR_OPENAI_API_KEY_HERE';
+$OPENAI_API_KEY = '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';
 
 // Lire le JSON envoyé
 $input = json_decode(file_get_contents('php://input'), true);
