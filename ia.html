@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Draevorn IA - Intelligence Artificielle</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600&display=swap" rel="stylesheet">
+<style>
+body {
+  margin:0; font-family:'Orbitron',sans-serif; background:#000; overflow:hidden; color:#fff;
+}
+
+/* --- INTRO --- */
+#intro {
+  position:fixed; top:0; left:0; width:100%; height:100%;
+  display:flex; justify-content:center; align-items:center; flex-direction:column;
+  background:#000; z-index:10;
+}
+#intro h1 {
+  font-size:48px; color:#bb00ff; opacity:0;
+  animation:fadeScale 2s ease forwards;
+}
+@keyframes fadeScale {
+  0% { opacity:0; transform:scale(0.8); }
+  100% { opacity:1; transform:scale(1); }
+}
+
+/* --- SLIDE PANEL --- */
+#slide {
+  position:fixed; top:0; left:-100%; width:100%; height:100%;
+  background: radial-gradient(circle,#4d00ff,#000020);
+  border-radius:0 40px 40px 0;
+  transition:left 1s ease;
+  z-index:9;
+  display:flex; justify-content:center; align-items:center;
+  font-size:32px;
+  color:white; text-shadow:0 0 15px #fff,0 0 25px #4db8ff;
+}
+
+/* --- CHAT --- */
+#chat-container {
+  position:relative; margin:0 auto; margin-top:100px;
+  width:90%; max-width:800px; opacity:0;
+  transition:opacity 1s;
+}
+.chat-box {
+  background:rgba(0,0,0,0.4);
+  border:1px solid rgba(255,255,255,0.2);
+  border-radius:20px;
+  padding:20px;
+  backdrop-filter:blur(10px);
+  box-shadow:0 0 25px rgba(77,184,255,0.3);
+  display:flex; flex-direction:column;
+  max-height:70vh; overflow-y:auto;
+}
+.message {
+  margin:8px 0; padding:10px 15px;
+  border-radius:15px; max-width:70%; word-wrap:break-word;
+  font-size:14px; line-height:1.4;
+}
+.user { background:rgba(106,90,255,0.6); align-self:flex-end; color:#fff; }
+.ai { background:rgba(138,107,255,0.6); align-self:flex-start; color:#fff; }
+.typing { font-style:italic; opacity:0.7; }
+
+/* INPUT AREA */
+#input-area { display:flex; margin-top:10px; gap:10px; }
+#input-area textarea { flex:1; border-radius:12px; padding:10px; background:#000;color:#fff; border:1px solid #444; resize:none;}
+#input-area button { padding:10px 20px; border-radius:12px; background:#6a5aff; border:none; color:#fff; cursor:pointer; transition:.3s;}
+#input-area button:hover { transform:scale(1.05); box-shadow:0 0 15px rgba(138,107,255,0.6);}
+
+/* PARTICULES */
+.particle {
+  position:absolute; width:6px; height:6px; border-radius:50%; background:#bb00ff;
+  opacity:0.7; pointer-events:none;
+  animation:fall linear infinite;
+}
+@keyframes fall { 0%{transform:translateY(0)} 100%{transform:translateY(100vh)} }
+</style>
+</head>
+<body>
+
+<!-- INTRO -->
+<div id="intro">
+  <h1>✨ Draevorn IA à votre service ✨</h1>
+</div>
+
+<!-- SLIDE PANEL -->
+<div id="slide">Chargement de l'IA...</div>
+
+<!-- CHAT -->
+<div id="chat-container">
+  <div class="chat-box" id="chat-box"></div>
+  <div id="input-area">
+    <textarea id="msg" placeholder="Posez une question..." rows="3"></textarea>
+    <button onclick="sendMessage()">Envoyer</button>
+  </div>
+</div>
+
+<script>
+// Intro animation
+setTimeout(()=>{ document.getElementById('slide').style.left="0"; },1000);
+setTimeout(()=>{ document.getElementById('chat-container').style.opacity=1; document.getElementById('intro').style.display='none'; },2200);
+
+// Particles
+function createParticle(){
+  const p=document.createElement('div'); p.className='particle';
+  p.style.left=Math.random()*100+'vw';
+  p.style.top='-10px';
+  p.style.width=p.style.height=Math.random()*6+4+'px';
+  document.body.appendChild(p);
+  const duration=Math.random()*6+6;
+  p.style.animationDuration=duration+'s';
+  setTimeout(()=>p.remove(),duration*1000);
+}
+setInterval(createParticle,100);
+
+// Chat logic
+async function sendMessage(){
+  const input=document.getElementById('msg');
+  const chatBox=document.getElementById('chat-box');
+  const msg=input.value.trim();
+  if(!msg) return;
+  // message utilisateur
+  const userMsg=document.createElement('div'); userMsg.className='message user'; userMsg.textContent=msg;
+  chatBox.appendChild(userMsg);
+  input.value=''; chatBox.scrollTop=chatBox.scrollHeight;
+
+  // typing effect
+  const aiMsg=document.createElement('div'); aiMsg.className='message ai typing'; aiMsg.textContent='Draevorn réfléchit...';
+  chatBox.appendChild(aiMsg);
+  chatBox.scrollTop=chatBox.scrollHeight;
+
+  // appel API PHP
+  try{
+    const res=await fetch('ai.php',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({prompt:msg})
+    });
+    const data=await res.json();
+    aiMsg.textContent=data.response;
+  }catch(e){
+    aiMsg.textContent='❌ Erreur serveur.';
+    console.error(e);
+  }
+  chatBox.scrollTop=chatBox.scrollHeight;
+}
+</script>
+
+</body>
+</html>
